@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>柳叶菁菁的博客</title>
+  <title>JAVA虚拟机栈 | 柳叶菁菁的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="个人技术博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="柳叶菁菁的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA虚拟机栈">
+<meta property="og:url" content="http://yoursite.com/2020/08/25/JAVA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/index.html">
 <meta property="og:site_name" content="柳叶菁菁的博客">
 <meta property="og:description" content="个人技术博客">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-08-25T11:19:57.000Z">
+<meta property="article:modified_time" content="2020-09-03T12:36:54.536Z">
 <meta property="article:author" content="liuyeqinigqing">
-<meta property="article:tag" content="技术,日志,随笔">
+<meta property="article:tag" content="jvm">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="柳叶菁菁的博客" type="application/atom+xml">
@@ -153,890 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-docker不适合安装数据库的原因" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-JAVA虚拟机栈" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/">docker不适合安装数据库的原因</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/" class="archive-article-date">
-  	<time datetime="2020-09-17T12:51:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="数据库不适合安装在容器的原因"><a href="#数据库不适合安装在容器的原因" class="headerlink" title="数据库不适合安装在容器的原因"></a>数据库不适合安装在容器的原因</h1><h2 id="1-数据安全问题"><a href="#1-数据安全问题" class="headerlink" title="1.数据安全问题"></a>1.数据安全问题</h2><p>当容器被删除时，容器内的数据也会被删除。虽然docker可以挂载数据卷来存储数据，但docker 的volumes是围绕Union FS镜像来提供持久化存储，数据安全缺乏保证。<br>当容器崩溃或者数据库奔溃等，可能会损坏数据。</p>
-<h2 id="2-磁盘IO性能问题"><a href="#2-磁盘IO性能问题" class="headerlink" title="2.磁盘IO性能问题"></a>2.磁盘IO性能问题</h2><p>数据库对磁盘操作频繁，如果一台docker部署多个mysql，会产生严重的IO瓶颈，降低数据库的性能。</p>
-<h2 id="3-网络问题"><a href="#3-网络问题" class="headerlink" title="3.网络问题"></a>3.网络问题</h2><p>假如数据库都安装在物理机，那么只需要保证物理机之间的网络是互通的，数据库主从复制就可以顺利进行。<br>但docker是使用网络虚拟化，在数据库与物理机之前多了一层隔离层，如果docker网络有问题会影响主从复制。</p>
-<h2 id="4-服务的状态"><a href="#4-服务的状态" class="headerlink" title="4.服务的状态"></a>4.服务的状态</h2><p>docker适合无状态的服务，但数据库是有状态的。将数据库放在docker中，它会使故障的范围增大。</p>
-<h2 id="5-资源隔离"><a href="#5-资源隔离" class="headerlink" title="5.资源隔离"></a>5.资源隔离</h2><p>docker使用cggroup实现资源限制，但只能限制自己已获得的资源。如果其他应用程序过度占用物理机的资源，严重时甚至导致容器停止服务。</p>
-<h2 id="6-数据库运行环境资源要求"><a href="#6-数据库运行环境资源要求" class="headerlink" title="6.数据库运行环境资源要求"></a>6.数据库运行环境资源要求</h2><p>假设数据库需要32G内存，如果安装在物理机中，理论上物理机也只需要32G内存就足够。但如果安装在docker上，物理机的所需的内存会远远大于32G，造成资源的浪费。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-docker下安装mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/">docker下安装mysql</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/" class="archive-article-date">
-  	<time datetime="2020-09-16T12:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="此篇博客仅供学习使用-实际生产环境中-mysql-redis等数据库不建议安装在容器中"><a href="#此篇博客仅供学习使用-实际生产环境中-mysql-redis等数据库不建议安装在容器中" class="headerlink" title="此篇博客仅供学习使用,实际生产环境中 mysql,redis等数据库不建议安装在容器中."></a>此篇博客仅供学习使用,实际生产环境中 mysql,redis等数据库不建议安装在容器中.</h1><ul>
-<li>详细可查看另一篇博客 <a href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/" title="docker不适合安装数据库的原因">docker不适合安装数据库的原因</a></li>
-</ul>
-<h2 id="1搜索MySQL镜像"><a href="#1搜索MySQL镜像" class="headerlink" title="1搜索MySQL镜像"></a>1搜索MySQL镜像</h2><pre><code>docker search mysql</code></pre>
-<p>我在搜索过程中报了如下错误<br>     Error response from daemon: Get <a target="_blank" rel="noopener" href="https://index.docker.io/v1/search?q=mysql&amp;n=25">https://index.docker.io/v1/search?q=mysql&amp;n=25</a>: x509: certificate has expired or is not yet valid</p>
-<p>经排查,原因可能有二种  </p>
-<p>(1)系统时间不对,执行如下命令更新时间</p>
-<pre><code>ntpdate cn.pool.ntp.org</code></pre>
-<p>(2)证书问题,添加国内加速镜像地址</p>
-<pre><code>sudo vim /etc/docker/daemon.json    </code></pre>
-<h3 id="添加如下内容"><a href="#添加如下内容" class="headerlink" title="添加如下内容"></a>添加如下内容</h3><pre><code>&#123;
-&quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;]
-&#125;</code></pre>
-<p>然后重启docker  </p>
-<pre><code>docker service restart</code></pre>
-<p>重启后再次搜索<br><img src="/images/docker_search_mysql.png" alt="Alt text"></p>
-<p>OFFICIAL 列的值为OK代表此镜像是官方镜像</p>
-<p>拉取最新的官方镜像<br>    docker pull mysql</p>
-<h2 id="2-在宿主机创建持久化文件夹"><a href="#2-在宿主机创建持久化文件夹" class="headerlink" title="2 在宿主机创建持久化文件夹"></a>2 在宿主机创建持久化文件夹</h2><p>说明(本次安装的mysql版本为5.7,所以此处的文件夹名称为mysql5.7)<br>/usr/local/mysqlData/mysql5.7/conf  配置文件夹</p>
-<p>/usr/local/mysqlData/mysql5.7/data  数据持久化数据文件夹</p>
-<p>/usr/local/mysqlData/mysql5.7/logs  日志文件夹</p>
-<pre><code>sudo mkdir -p /usr/local/mysqlData/mysql5.7/conf
-sudo mkdir -p /usr/local/mysqlData/mysql5.7/data
-sudo mkdir -p /usr/local/mysqlData/mysql5.7/logs</code></pre>
-<h3 id="2-1创建外部挂载配置文件"><a href="#2-1创建外部挂载配置文件" class="headerlink" title="2.1创建外部挂载配置文件"></a>2.1创建外部挂载配置文件</h3><pre><code>sudo vi /usr/local/mysqlData/mysql5.7/conf/mysql.cnf</code></pre>
-<h3 id="2-2文件内容如下-此处是mysql5-7的配置文件-如果是其他版本-请自行搜索对应的文件"><a href="#2-2文件内容如下-此处是mysql5-7的配置文件-如果是其他版本-请自行搜索对应的文件" class="headerlink" title="2.2文件内容如下(此处是mysql5.7的配置文件,如果是其他版本,请自行搜索对应的文件)"></a>2.2文件内容如下(此处是mysql5.7的配置文件,如果是其他版本,请自行搜索对应的文件)</h3><pre><code># Copyright (c) 2014, 2016, Oracle and/or its affiliates. All rights reserved.
-#
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License, version 2.0,
-# as published by the Free Software Foundation.
-#
-# This program is also distributed with certain software (including
-# but not limited to OpenSSL) that is licensed under separate terms,
-# as designated in a particular file or component or in included license
-# documentation.  The authors of MySQL hereby grant you an additional
-# permission to link the program and your derivative works with the
-# separately licensed software that they have included with MySQL.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License, version 2.0, for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
-
-#
-# The MySQL  Server configuration file.
-#
-# For explanations see
-# http://dev.mysql.com/doc/mysql/en/server-system-variables.html
-
-[mysqld]
-pid-file    = /var/run/mysqld/mysqld.pid
-socket        = /var/run/mysqld/mysqld.sock
-datadir        = /var/lib/mysql
-sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
-#log-error    = /var/log/mysql/error.log
-# By default we only accept connections from localhost
-#bind-address    = 127.0.0.1
-# Disabling symbolic-links is recommended to prevent assorted security risks
-symbolic-links=0</code></pre>
-<h2 id="3-docker运行mysql镜像-请自行修改对应步骤2的持久化文件夹"><a href="#3-docker运行mysql镜像-请自行修改对应步骤2的持久化文件夹" class="headerlink" title="3 docker运行mysql镜像(请自行修改对应步骤2的持久化文件夹)"></a>3 docker运行mysql镜像(请自行修改对应步骤2的持久化文件夹)</h2><pre><code>sudo docker run -itd -p 3306:3306 --name mysql5.7 --privileged=true  -v /usr/local/mysqlData/mysql5.7/conf:/etc/mysql/conf.d -v /usr/local/mysqlData/mysql5.7/data:/var/lib/mysql -v /usr/local/mysqlData/mysql5.7/logs:/logs -e MYSQL_ROOT_PASSWORD=root mysql:5.7</code></pre>
-<h3 id="3-1-docker-查看运行中的容器"><a href="#3-1-docker-查看运行中的容器" class="headerlink" title="3.1 docker 查看运行中的容器"></a>3.1 docker 查看运行中的容器</h3><pre><code>docker ps     </code></pre>
-<p>如图mysql容器已经在运行中</p>
-<p><img src="/images/docker_ps.png" alt="Alt text"></p>
-<h3 id="3-2-进入mysql-容器中"><a href="#3-2-进入mysql-容器中" class="headerlink" title="3.2 进入mysql 容器中"></a>3.2 进入mysql 容器中</h3><pre><code>docker exec -it 173813af43c4 /bin/sh    </code></pre>
-<p>在容器内进入mysql </p>
-<pre><code>mysql -u root -p     </code></pre>
-<p>输入密码后即可进入到mysql中<br>退出mysql exit;</p>
-<h3 id="3-3-退出容器"><a href="#3-3-退出容器" class="headerlink" title="3.3 退出容器"></a>3.3 退出容器</h3><p>如果要正常退出且不关闭容器,请按Ctrl+P+Q进行退出容器</p>
-<h3 id="3-4-设置mysql开机启动"><a href="#3-4-设置mysql开机启动" class="headerlink" title="3.4 设置mysql开机启动"></a>3.4 设置mysql开机启动</h3><pre><code>docker update mysql5.7 --restart=always    </code></pre>
-<p>mysql5.7 为步骤3 –name的容器名</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis持久化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/">redis持久化</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-09-14T12:08:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-14</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="redis持久化策略"><a href="#redis持久化策略" class="headerlink" title="redis持久化策略"></a>redis持久化策略</h1><p>redis官方持久化方式有两种</p>
-<ul>
-<li><p>快照(RDB) : 保存了redis某个时间点的数据集</p>
-</li>
-<li><p>追加文件(AOF) : 记录redis执行的所有操作命令,并在服务器启动时,通过执行这些命令来还原数据</p>
-</li>
-</ul>
-<h2 id="1-快照-RDB"><a href="#1-快照-RDB" class="headerlink" title="1 快照(RDB)"></a>1 快照(RDB)</h2><p>优点<br>    1. 通过合理配置,可以很方便地讲数据还原到某个特定的时间.<br>    2. RDB文件比AOF文件占用的空间小,且恢复数据的速度也更快<br>    3. 如果创建RDB文件时出现错误,不会影响到之前保存的版本.</p>
-<p>缺点<br>    a 会丢失未来得及生成快照的数据<br>    b fork子进程占用的内存会随着数据的增加而增加,恢复时间也会相应增加.</p>
-<h2 id="2-追加文件-AOF"><a href="#2-追加文件-AOF" class="headerlink" title="2 追加文件(AOF)"></a>2 追加文件(AOF)</h2><p>优点:<br>-数据完整性更高（最多丢失2秒的数据）<br>-该机制对日志文件是追加的，即使追加过程中系统宕机，也不会影响之前已经存在的内容。<br>-</p>
-<p>缺点:<br>-相同数据集，AOF文件比RDB大，恢复速度也慢</p>
-<p>-根据同步策略不同，AOF在运行效率下会低于RDB<br>AOF持久化功能可以分为命令追加,文件写入和文件同步.</p>
-<p>-命令追加: 当AOF开启时,redis执行完一个命令后,会以协议格式将被执行的写命令追加到服务器的aof_buf缓冲区的末尾</p>
-<p>-写入和同步 : 每当服务器常规任务函数被执行、 或者事件处理器被执行时， aof.c/flushAppendOnlyFile 函数都会被调用， 这个函数执行以下两个工作：<br>    WRITE：根据条件，将 aof_buf 中的缓存写入到 AOF 文件。<br>    SAVE：根据条件，调用 fsync 或 fdatasync 函数，将 AOF 文件保存到磁盘中。</p>
-<p>这两个步骤都根据设置的保存模式来执行</p>
-<p>Redis 目前支持三种 AOF 保存模式，它们分别是：</p>
-<p>AOF_FSYNC_NO ：不保存。</p>
-<p>AOF_FSYNC_EVERYSEC ：每一秒钟保存一次。</p>
-<p>AOF_FSYNC_ALWAYS ：每执行一个命令保存一次。</p>
-<h2 id="1-不保存"><a href="#1-不保存" class="headerlink" title="1 不保存"></a>1 不保存</h2><pre><code>在这种模式下， 每次调用 flushAppendOnlyFile 函数， WRITE 都会被执行， 但 SAVE 会被略过。
-
-SAVE 只会在以下任意一种情况中被执行：</code></pre>
-<p>-Redis 被关闭<br>-AOF 功能被关闭<br>-系统的写缓存被刷新（可能是缓存已经被写满，或者定期保存操作被执行）</p>
-<h2 id="2-每一秒保存"><a href="#2-每一秒保存" class="headerlink" title="2 每一秒保存"></a>2 每一秒保存</h2><pre><code>此时save操作是由后台子进程调用，不会影响主线程。原则上每秒执行调用sync和syncdata。</code></pre>
-<p>每当flushAppendOnlyFile函数被调用，会有以下四中情况。</p>
-<ul>
-<li>子线程正在执行save<br>1.save执行时间未超过2秒，程序直接返回，不执行write和save<br>2.save执行时间超过2秒，程序阻塞等待旧save的执行完成后再执行write，但不执行save。</li>
-</ul>
-<p>-子线程没有执行save<br>  3.距离上次执行save已经超过1秒，执行write和save<br>  4.距离上次执行save成功未超过1秒，执行write，不执行save。</p>
-<p><img src="/images/redis_save_per_second.png" alt="Alt text"></p>
-<p>这种模式最多会丢失2秒的数据。</p>
-<h2 id="3-每执行一个命令保存一次"><a href="#3-每执行一个命令保存一次" class="headerlink" title="3 每执行一个命令保存一次"></a>3 每执行一个命令保存一次</h2><pre><code>这种模式下，每个命令执行完write和save都会被调用，由于是主线程执行save操作，save执行期间，主线程阻塞，不能接受客户端的命令。</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-docker常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/13/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">docker常用命令</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/13/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-09-13T12:18:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1环境信息"><a href="#1环境信息" class="headerlink" title="1环境信息"></a>1环境信息</h1><h2 id="1-1查看详细信息"><a href="#1-1查看详细信息" class="headerlink" title="1.1查看详细信息"></a>1.1查看详细信息</h2><pre><code>docker info    </code></pre>
-<h2 id="1-2查看版本信息"><a href="#1-2查看版本信息" class="headerlink" title="1.2查看版本信息"></a>1.2查看版本信息</h2><pre><code>docker version</code></pre>
-<h1 id="2镜像相关"><a href="#2镜像相关" class="headerlink" title="2镜像相关"></a>2镜像相关</h1><h2 id="2-1登录到远程仓库"><a href="#2-1登录到远程仓库" class="headerlink" title="2.1登录到远程仓库"></a>2.1登录到远程仓库</h2><pre><code>docker login -u username -p password</code></pre>
-<h2 id="2-2-搜索镜像"><a href="#2-2-搜索镜像" class="headerlink" title="2.2 搜索镜像"></a>2.2 搜索镜像</h2><pre><code>docker search mysql</code></pre>
-<h2 id="2-3拉取镜像"><a href="#2-3拉取镜像" class="headerlink" title="2.3拉取镜像"></a>2.3拉取镜像</h2><pre><code>docker pull mysql</code></pre>
-<p>默认使用最新的版本(即docker pull mysql:latest)</p>
-<h2 id="2-4列出本地镜像"><a href="#2-4列出本地镜像" class="headerlink" title="2.4列出本地镜像"></a>2.4列出本地镜像</h2><pre><code>docker images</code></pre>
-<h2 id="2-5-删除本地镜像"><a href="#2-5-删除本地镜像" class="headerlink" title="2.5 删除本地镜像"></a>2.5 删除本地镜像</h2><pre><code>docker rmi mysql:5.7</code></pre>
-<h2 id="2-6-指定Dockerfile创建镜像"><a href="#2-6-指定Dockerfile创建镜像" class="headerlink" title="2.6  指定Dockerfile创建镜像"></a>2.6  指定Dockerfile创建镜像</h2><pre><code>docker build -f /path/Dockerfile</code></pre>
-<h2 id="2-7-将指定镜像保存成tar镜像归档文件"><a href="#2-7-将指定镜像保存成tar镜像归档文件" class="headerlink" title="2.7 将指定镜像保存成tar镜像归档文件"></a>2.7 将指定镜像保存成tar镜像归档文件</h2><pre><code>docker save mysql.tar mysql:5.7</code></pre>
-<p>将mysql5.7镜像保存成mysql.tar文件</p>
-<h2 id="2-7-加载tar镜像"><a href="#2-7-加载tar镜像" class="headerlink" title="2.7 加载tar镜像"></a>2.7 加载tar镜像</h2><pre><code>docker load -i mysql.tar</code></pre>
-<h1 id="3容器相关"><a href="#3容器相关" class="headerlink" title="3容器相关"></a>3容器相关</h1><h2 id="3-1列出正在运行的容器"><a href="#3-1列出正在运行的容器" class="headerlink" title="3.1列出正在运行的容器"></a>3.1列出正在运行的容器</h2><pre><code>docker ps    </code></pre>
-<p>如果要列出所有容器 docker ps -a</p>
-<h2 id="3-2-docker-inspect-imageId-containerId"><a href="#3-2-docker-inspect-imageId-containerId" class="headerlink" title="3.2 docker inspect [imageId/containerId]"></a>3.2 docker inspect [imageId/containerId]</h2><p>列出镜像或者容器的元数据</p>
-<h2 id="3-3-docker-logs-containerId"><a href="#3-3-docker-logs-containerId" class="headerlink" title="3.3 docker logs containerId"></a>3.3 docker logs containerId</h2><pre><code>查看容器的日志</code></pre>
-<h2 id="3-4-将容器保存成tar镜像归档文件"><a href="#3-4-将容器保存成tar镜像归档文件" class="headerlink" title="3.4 将容器保存成tar镜像归档文件"></a>3.4 将容器保存成tar镜像归档文件</h2><pre><code>docker export -o mysql_test.tar containerId</code></pre>
-<h2 id="3-5-从镜像归档tar文件创建镜像"><a href="#3-5-从镜像归档tar文件创建镜像" class="headerlink" title="3.5 从镜像归档tar文件创建镜像"></a>3.5 从镜像归档tar文件创建镜像</h2><pre><code>docker import mysql_test.tar mysql:5.7</code></pre>
-<p>注意</p>
-<ul>
-<li><p>docker save(操作对象是镜像) 出来的文件只能用load加载.</p>
-</li>
-<li><p>docker save 保存完整记录,load时无法指定标签等元数据信息.</p>
-</li>
-<li><p>docker export(操作对象是容器) 出来的文件只能用import加载.</p>
-</li>
-<li><p>docker export 导出的容器快照文件,会丢失所有的历史记录以及元数据信息,import时可以指定标签等元数据信息</p>
-</li>
-</ul>
-<h1 id="4-容器生命周期管理"><a href="#4-容器生命周期管理" class="headerlink" title="4 容器生命周期管理"></a>4 容器生命周期管理</h1><h2 id="4-1-运行"><a href="#4-1-运行" class="headerlink" title="4.1 运行"></a>4.1 运行</h2><pre><code>docker run containerId</code></pre>
-<p>可选参数<br>-a stdin: 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；</p>
-<p>-d: 后台运行容器，并返回容器ID；</p>
-<p>-i: 以交互模式运行容器，通常与 -t 同时使用；</p>
-<p>-P: 随机端口映射，容器内部端口随机映射到主机的端口</p>
-<p>-p: 指定端口映射，格式为：主机(宿主)端口:容器端口</p>
-<p>-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</p>
-<p>–name=”nginx-lb”: 为容器指定一个名称；</p>
-<p>–dns 8.8.8.8: 指定容器使用的DNS服务器，默认和宿主一致；</p>
-<p>–dns-search example.com: 指定容器DNS搜索域名，默认和宿主一致；</p>
-<p>-h “mars”: 指定容器的hostname；</p>
-<p>-e username=”ritchie”: 设置环境变量；</p>
-<p>–env-file=[]: 从指定文件读入环境变量；</p>
-<p>–cpuset=”0-2” or –cpuset=”0,1,2”: 绑定容器到指定CPU运行；</p>
-<p>-m :设置容器使用内存最大值；</p>
-<p>–net=”bridge”: 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；</p>
-<p>–link=[]: 添加链接到另一个容器；</p>
-<p>–expose=[]: 开放一个端口或一组端口；</p>
-<p>–volume , -v: 绑定一个卷</p>
-<h2 id="4-2-启动-停止-重启"><a href="#4-2-启动-停止-重启" class="headerlink" title="4.2 启动/停止/重启"></a>4.2 启动/停止/重启</h2><pre><code>docker start/stop/restart containerId</code></pre>
-<h2 id="4-3-进入到容器中"><a href="#4-3-进入到容器中" class="headerlink" title="4.3 进入到容器中"></a>4.3 进入到容器中</h2><pre><code>docker exec -it containerId /bin/sh</code></pre>
-<h2 id="4-4-删除容器"><a href="#4-4-删除容器" class="headerlink" title="4.4 删除容器"></a>4.4 删除容器</h2><pre><code>docker rmi containerId</code></pre>
-<h2 id="4-4"><a href="#4-4" class="headerlink" title="4.4"></a>4.4</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/13/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-安装docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/10/%E5%AE%89%E8%A3%85docker/">安装docker</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/10/%E5%AE%89%E8%A3%85docker/" class="archive-article-date">
-  	<time datetime="2020-09-10T13:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1下载Centos-64位-docker离线安装包"><a href="#1下载Centos-64位-docker离线安装包" class="headerlink" title="1下载Centos 64位 docker离线安装包"></a>1下载Centos 64位 docker离线安装包</h1><p><a target="_blank" rel="noopener" href="https://download.docker.com/linux/static/stable/x86_64/">https://download.docker.com/linux/static/stable/x86_64/</a></p>
-<p>本文下载的是 docker-18.06.3-ce.tgz </p>
-<h1 id="2-解压安装"><a href="#2-解压安装" class="headerlink" title="2 解压安装"></a>2 解压安装</h1><h2 id="2-1-解压"><a href="#2-1-解压" class="headerlink" title="2.1 解压"></a>2.1 解压</h2><pre><code>tar -zxvf docker-18.06.3-ce.tgz</code></pre>
-<h2 id="2-2-将解压出来的docker文件夹复制到-usr-bin目录下"><a href="#2-2-将解压出来的docker文件夹复制到-usr-bin目录下" class="headerlink" title="2.2 将解压出来的docker文件夹复制到/usr/bin目录下"></a>2.2 将解压出来的docker文件夹复制到/usr/bin目录下</h2><pre><code>cp docker/* /usr/bin/</code></pre>
-<h2 id="2-3-注册docker服务"><a href="#2-3-注册docker服务" class="headerlink" title="2.3 注册docker服务"></a>2.3 注册docker服务</h2><pre><code>vi /etc/systemd/system/docker.service</code></pre>
-<p>docker.service文件内容如下  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Docker Application Container Engine</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;docs.docker.com</span><br><span class="line">After&#x3D;network-online.target firewalld.service</span><br><span class="line">Wants&#x3D;network-online.target</span><br><span class="line">  </span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;notify</span><br><span class="line"># the default is not to use systemd for cgroups because the delegate issues still</span><br><span class="line"># exists and systemd currently does not support the cgroup feature set required</span><br><span class="line"># for containers run by docker</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd --selinux-enabled&#x3D;false --insecure-registry&#x3D;127.0.0.1</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -s HUP $MAINPID</span><br><span class="line"># Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="line"># in the kernel. We recommend using cgroups to do container-local accounting.</span><br><span class="line">LimitNOFILE&#x3D;infinity</span><br><span class="line">LimitNPROC&#x3D;infinity</span><br><span class="line">LimitCORE&#x3D;infinity</span><br><span class="line"># Uncomment TasksMax if your systemd version supports it.</span><br><span class="line"># Only systemd 226 and above support this version.</span><br><span class="line">#TasksMax&#x3D;infinity</span><br><span class="line">TimeoutStartSec&#x3D;0</span><br><span class="line"># set delegate yes so that systemd does not reset the cgroups of docker containers</span><br><span class="line">Delegate&#x3D;yes</span><br><span class="line"># kill only the docker process, not all processes in the cgroup</span><br><span class="line">KillMode&#x3D;process</span><br><span class="line"># restart the docker process if it exits prematurely</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">StartLimitBurst&#x3D;3</span><br><span class="line">StartLimitInterval&#x3D;60s</span><br><span class="line">  </span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-4给docker-service文件添加执行权限"><a href="#2-4给docker-service文件添加执行权限" class="headerlink" title="2.4给docker.service文件添加执行权限"></a>2.4给docker.service文件添加执行权限</h2><pre><code>chmod +x /etc/systemd/system/docker.service    </code></pre>
-<h2 id="2-5重新加载配置文件"><a href="#2-5重新加载配置文件" class="headerlink" title="2.5重新加载配置文件"></a>2.5重新加载配置文件</h2><pre><code>systemctl daemon-reload    </code></pre>
-<h1 id="3启动docker测试"><a href="#3启动docker测试" class="headerlink" title="3启动docker测试"></a>3启动docker测试</h1><h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><pre><code>systemctl start docker    </code></pre>
-<h2 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h2><pre><code>systemctl enable docker.service    </code></pre>
-<h2 id="查看docker服务状态"><a href="#查看docker服务状态" class="headerlink" title="查看docker服务状态"></a>查看docker服务状态</h2><pre><code>systemctl status docker    </code></pre>
-<p>显示有active (running) 代表 安装成功<br><img src="/images/docker-status-running.png" alt="Alt text"></p>
-<h2 id="docker设置官方加速镜像源地址以及账户密码"><a href="#docker设置官方加速镜像源地址以及账户密码" class="headerlink" title="docker设置官方加速镜像源地址以及账户密码"></a>docker设置官方加速镜像源地址以及账户密码</h2><pre><code>sudo vim /etc/docker/daemon.json    </code></pre>
-<h3 id="添加如下内容"><a href="#添加如下内容" class="headerlink" title="添加如下内容"></a>添加如下内容</h3><pre><code>&#123;
-&quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;]
-&#125;</code></pre>
-<h3 id="然后重启docker"><a href="#然后重启docker" class="headerlink" title="然后重启docker"></a>然后重启docker</h3><pre><code>docker service restart</code></pre>
-<p>去 <a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com/</a> 注册账户,然后登陆</p>
-<pre><code>docker login -u username -p password    </code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/10/%E5%AE%89%E8%A3%85docker/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-缓存穿透缓存击穿以及缓存雪崩" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/06/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E4%BB%A5%E5%8F%8A%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/">缓存穿透,缓存击穿以及缓存雪崩</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/06/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E4%BB%A5%E5%8F%8A%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" class="archive-article-date">
-  	<time datetime="2020-09-06T13:55:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="缓存穿透-key对应的数据源不存在。"><a href="#缓存穿透-key对应的数据源不存在。" class="headerlink" title="缓存穿透: key对应的数据源不存在。"></a>缓存穿透: key对应的数据源不存在。</h1><p>比如客户端访问id为-1的记录，数据库不存在这条数据，缓存中自然也没有，所以每次都会去数据库查询。</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
-<li>布隆过滤器</li>
-<li>缓存null值，但时间不能过长或过短</li>
-</ol>
-<h1 id="缓存击穿-key对应的数据源已过期。"><a href="#缓存击穿-key对应的数据源已过期。" class="headerlink" title="缓存击穿: key对应的数据源已过期。"></a>缓存击穿: key对应的数据源已过期。</h1><p>大量并发同时请求某一过期数据，由于缓存过期，会同时访问数据库，导致数据库压力剧增。</p>
-<h2 id="解决方法-1"><a href="#解决方法-1" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
-<li>热点数据永不过期</li>
-<li>根据key添加互斥锁</li>
-</ol>
-<h2 id="缓存雪崩-缓存中大量数据同一时间过期"><a href="#缓存雪崩-缓存中大量数据同一时间过期" class="headerlink" title="缓存雪崩: 缓存中大量数据同一时间过期"></a>缓存雪崩: 缓存中大量数据同一时间过期</h2><p>大量缓存数据过期，导致数据库压力过大，甚至宕机。</p>
-<h2 id="解决方法-2"><a href="#解决方法-2" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
-<li>对key设置随机过期时间</li>
-<li>热点数据永不过期</li>
-<li>限流</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/06/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E4%BB%A5%E5%8F%8A%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis数据类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/05/redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">redis数据类型</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/05/redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2020-09-05T13:40:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="redis-数据类型"><a href="#redis-数据类型" class="headerlink" title="redis 数据类型"></a>redis 数据类型</h1><h2 id="1-string"><a href="#1-string" class="headerlink" title="1 string"></a>1 string</h2><pre><code>redis最基本的类型,二进制安全的</code></pre>
-<h2 id="2-list"><a href="#2-list" class="headerlink" title="2 list"></a>2 list</h2><pre><code>按插入顺序排序的字符串元素的集合.基本上就是链表</code></pre>
-<h2 id="3-hash"><a href="#3-hash" class="headerlink" title="3 hash"></a>3 hash</h2><pre><code>由field和value都是字符串的键值对组成的集合,类似map</code></pre>
-<h2 id="4-set"><a href="#4-set" class="headerlink" title="4 set"></a>4 set</h2><pre><code>无序,不重复的字符串集合</code></pre>
-<h2 id="5-sortzet"><a href="#5-sortzet" class="headerlink" title="5 sortzet"></a>5 sortzet</h2><pre><code>类似set,但每个字符串元素都会有一个score.里面的元素按照score排序</code></pre>
-<h2 id="6-bit-map"><a href="#6-bit-map" class="headerlink" title="6 bit map"></a>6 bit map</h2><pre><code>通过一个bit位来表示某个元素对应的值或状态,其中的key就是元素本身,value对应0或1
-个bit组成一个Byte,所以bitmap本身极大的节省存储空间</code></pre>
-<h2 id="7-hyperloglog"><a href="#7-hyperloglog" class="headerlink" title="7 hyperloglog"></a>7 hyperloglog</h2><pre><code>用于做基数统计的算法.类似估计一个set中元素数量的概率性数据结构.不存储元素本身</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/05/redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-如何判断对象是否可回收" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/">如何判断对象是否可回收</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/" class="archive-article-date">
-  	<time datetime="2020-09-03T13:11:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="如何判断对象是否可以回收？"><a href="#如何判断对象是否可以回收？" class="headerlink" title="如何判断对象是否可以回收？"></a>如何判断对象是否可以回收？</h1><h2 id="1引用计数法。"><a href="#1引用计数法。" class="headerlink" title="1引用计数法。"></a>1引用计数法。</h2><p>如果对象有引用，那么计数器+1。但是相互引用会导致这两个对象一直不能被回收。</p>
-<h2 id="2-GC-ROOT可达性算法。"><a href="#2-GC-ROOT可达性算法。" class="headerlink" title="2 GC ROOT可达性算法。"></a>2 GC ROOT可达性算法。</h2><ul>
-<li>将每一个对象都看作一个节点，并且选取指定的对象作为根节点。  </li>
-<li>从根节点往下搜索，走过的路径称为引用链。</li>
-<li>当一个对象有引用链连接到根节点，证明这个对象是可达的。</li>
-<li>没有引用链的对象（不可达的对象）可以被jvm回收。</li>
-</ul>
-<p><img src="/images/gc-root.png" alt="Alt text"></p>
-<hr>
-<h1 id="可以做为GC-ROOT的节点"><a href="#可以做为GC-ROOT的节点" class="headerlink" title="可以做为GC ROOT的节点"></a>可以做为GC ROOT的节点</h1><h2 id="1java栈的对象"><a href="#1java栈的对象" class="headerlink" title="1java栈的对象"></a>1java栈的对象</h2><h2 id="2本地方法栈的对象"><a href="#2本地方法栈的对象" class="headerlink" title="2本地方法栈的对象"></a>2本地方法栈的对象</h2><h2 id="3方法区的常量引用的对象"><a href="#3方法区的常量引用的对象" class="headerlink" title="3方法区的常量引用的对象"></a>3方法区的常量引用的对象</h2><h2 id="4方法区类静态属性引用的对象"><a href="#4方法区类静态属性引用的对象" class="headerlink" title="4方法区类静态属性引用的对象"></a>4方法区类静态属性引用的对象</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis淘汰策略" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/03/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/">redis淘汰策略</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/03/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/" class="archive-article-date">
-  	<time datetime="2020-09-03T12:34:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="redis键的淘汰策略"><a href="#redis键的淘汰策略" class="headerlink" title="redis键的淘汰策略"></a>redis键的淘汰策略</h1><h2 id="1不删除，内存过大直接报错"><a href="#1不删除，内存过大直接报错" class="headerlink" title="1不删除，内存过大直接报错"></a>1不删除，内存过大直接报错</h2><h2 id="2针对所有的key随机删除"><a href="#2针对所有的key随机删除" class="headerlink" title="2针对所有的key随机删除"></a>2针对所有的key随机删除</h2><h2 id="3针对过期的key随机删除！"><a href="#3针对过期的key随机删除！" class="headerlink" title="3针对过期的key随机删除！"></a>3针对过期的key随机删除！</h2><h2 id="4针对所有的key-实行lru（最近最少未使用）"><a href="#4针对所有的key-实行lru（最近最少未使用）" class="headerlink" title="4针对所有的key 实行lru（最近最少未使用）"></a>4针对所有的key 实行lru（最近最少未使用）</h2><h2 id="5针对过期的key实行lru"><a href="#5针对过期的key实行lru" class="headerlink" title="5针对过期的key实行lru"></a>5针对过期的key实行lru</h2><h2 id="6删除过期剩余时间最短的key（随机挑选几个设置了ttl的key，删除最快过期的）"><a href="#6删除过期剩余时间最短的key（随机挑选几个设置了ttl的key，删除最快过期的）" class="headerlink" title="6删除过期剩余时间最短的key（随机挑选几个设置了ttl的key，删除最快过期的）"></a>6删除过期剩余时间最短的key（随机挑选几个设置了ttl的key，删除最快过期的）</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/03/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-JAVA虚拟机栈" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/25/JAVA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/">JAVA虚拟机栈</a>
+    <h1 class="article-title" itemprop="name">
+      JAVA虚拟机栈
     </h1>
   
 
@@ -1053,6 +179,27 @@ SAVE 只会在以下任意一种情况中被执行：</code></pre>
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -1071,16 +218,84 @@ SAVE 只会在以下任意一种情况中被执行：</code></pre>
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/25/JAVA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/08/25/JAVA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2020/09/03/redis%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          redis淘汰策略
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM内存模型</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -1100,12 +315,14 @@ SAVE 只会在以下任意一种情况中被执行：</code></pre>
 
 
 
+  
+  
+  
 
   
+
   
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
-    </nav>
+
   
 
 
@@ -1128,8 +345,8 @@ SAVE 只会在以下任意一种情况中被执行：</code></pre>
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
