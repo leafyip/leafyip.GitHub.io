@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://yoursite.com/images/docker_search_mysql.png">
 <meta property="og:image" content="http://yoursite.com/images/docker_ps.png">
 <meta property="article:published_time" content="2020-09-16T12:49:19.000Z">
-<meta property="article:modified_time" content="2020-09-16T14:51:34.692Z">
+<meta property="article:modified_time" content="2020-12-22T14:01:30.897Z">
 <meta property="article:author" content="liuyeqinigqing">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -183,6 +183,8 @@
 </ul>
 <h2 id="1搜索MySQL镜像"><a href="#1搜索MySQL镜像" class="headerlink" title="1搜索MySQL镜像"></a>1搜索MySQL镜像</h2><pre><code>docker search mysql</code></pre>
 <p>我在搜索过程中报了如下错误<br>     Error response from daemon: Get <a target="_blank" rel="noopener" href="https://index.docker.io/v1/search?q=mysql&amp;n=25">https://index.docker.io/v1/search?q=mysql&amp;n=25</a>: x509: certificate has expired or is not yet valid</p>
+<a id="more"></a>
+
 <p>经排查,原因可能有二种  </p>
 <p>(1)系统时间不对,执行如下命令更新时间</p>
 <pre><code>ntpdate cn.pool.ntp.org</code></pre>
@@ -410,7 +412,7 @@ symbolic-links=0</code></pre>
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 liuyeqinigqing
+    		&copy; 2021 liuyeqinigqing
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -506,6 +508,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">minio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
             
             <div class="clearfix"></div>

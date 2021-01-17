@@ -8,15 +8,15 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>缓存穿透,缓存击穿以及缓存雪崩 | 柳叶菁菁的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="缓存穿透: key对应的数据源不存在。比如客户端访问id为-1的记录，数据库不存在这条数据，缓存中自然也没有，所以每次都会去数据库查询。 解决方法 布隆过滤器 缓存null值，但时间不能过长或过短  缓存击穿: key对应的数据源已过期。大量并发同时请求某一过期数据，由于缓存过期，会同时访问数据库，导致数据库压力剧增。 解决方法 热点数据永不过期 根据key添加互斥锁  缓存雪崩: 缓存中大量数据">
+  <meta name="description" content="缓存穿透: key对应的数据源不存在。比如客户端访问id为-1的记录，数据库不存在这条数据，缓存中自然也没有，所以每次都会去数据库查询。 解决方法 布隆过滤器 缓存null值，但时间不能过长或过短  缓存击穿: key对应的数据源已过期。大量并发同时请求某一过期数据，由于缓存过期，会同时访问数据库，导致数据库压力剧增。 解决方法 热点数据永不过期 根据key添加互斥锁(set nx px )">
 <meta property="og:type" content="article">
 <meta property="og:title" content="缓存穿透,缓存击穿以及缓存雪崩">
 <meta property="og:url" content="http://yoursite.com/2020/09/06/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E4%BB%A5%E5%8F%8A%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/index.html">
 <meta property="og:site_name" content="柳叶菁菁的博客">
-<meta property="og:description" content="缓存穿透: key对应的数据源不存在。比如客户端访问id为-1的记录，数据库不存在这条数据，缓存中自然也没有，所以每次都会去数据库查询。 解决方法 布隆过滤器 缓存null值，但时间不能过长或过短  缓存击穿: key对应的数据源已过期。大量并发同时请求某一过期数据，由于缓存过期，会同时访问数据库，导致数据库压力剧增。 解决方法 热点数据永不过期 根据key添加互斥锁  缓存雪崩: 缓存中大量数据">
+<meta property="og:description" content="缓存穿透: key对应的数据源不存在。比如客户端访问id为-1的记录，数据库不存在这条数据，缓存中自然也没有，所以每次都会去数据库查询。 解决方法 布隆过滤器 缓存null值，但时间不能过长或过短  缓存击穿: key对应的数据源已过期。大量并发同时请求某一过期数据，由于缓存过期，会同时访问数据库，导致数据库压力剧增。 解决方法 热点数据永不过期 根据key添加互斥锁(set nx px )">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-09-06T13:55:48.000Z">
-<meta property="article:modified_time" content="2020-09-06T13:59:40.926Z">
+<meta property="article:modified_time" content="2020-12-22T14:02:52.745Z">
 <meta property="article:author" content="liuyeqinigqing">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -183,10 +183,10 @@
 <h1 id="缓存击穿-key对应的数据源已过期。"><a href="#缓存击穿-key对应的数据源已过期。" class="headerlink" title="缓存击穿: key对应的数据源已过期。"></a>缓存击穿: key对应的数据源已过期。</h1><p>大量并发同时请求某一过期数据，由于缓存过期，会同时访问数据库，导致数据库压力剧增。</p>
 <h2 id="解决方法-1"><a href="#解决方法-1" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
 <li>热点数据永不过期</li>
-<li>根据key添加互斥锁</li>
+<li>根据key添加互斥锁(set nx px )<a id="more"></a>
+<h2 id="缓存雪崩-缓存中大量数据同一时间过期"><a href="#缓存雪崩-缓存中大量数据同一时间过期" class="headerlink" title="缓存雪崩: 缓存中大量数据同一时间过期"></a>缓存雪崩: 缓存中大量数据同一时间过期</h2>大量缓存数据过期，导致数据库压力过大，甚至宕机。<h2 id="解决方法-2"><a href="#解决方法-2" class="headerlink" title="解决方法"></a>解决方法</h2></li>
 </ol>
-<h2 id="缓存雪崩-缓存中大量数据同一时间过期"><a href="#缓存雪崩-缓存中大量数据同一时间过期" class="headerlink" title="缓存雪崩: 缓存中大量数据同一时间过期"></a>缓存雪崩: 缓存中大量数据同一时间过期</h2><p>大量缓存数据过期，导致数据库压力过大，甚至宕机。</p>
-<h2 id="解决方法-2"><a href="#解决方法-2" class="headerlink" title="解决方法"></a>解决方法</h2><ol>
+<ol>
 <li>对key设置随机过期时间</li>
 <li>热点数据永不过期</li>
 <li>限流</li>
@@ -295,17 +295,17 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/09/10/%E5%AE%89%E8%A3%85docker/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2020/09/06/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          安装docker
+          JVM垃圾回收算法
         
       </div>
     </a>
   
   
-    <a href="/2020/09/05/redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/09/05/redis8%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">redis数据类型</div>
       <i class="icon-circle-right"></i>
     </a>
@@ -349,7 +349,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 liuyeqinigqing
+    		&copy; 2021 liuyeqinigqing
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -445,6 +445,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">minio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
             
             <div class="clearfix"></div>

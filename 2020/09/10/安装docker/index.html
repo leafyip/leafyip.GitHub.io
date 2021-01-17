@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/docker-status-running.png">
 <meta property="article:published_time" content="2020-09-10T13:07:24.000Z">
-<meta property="article:modified_time" content="2020-09-16T13:48:39.223Z">
+<meta property="article:modified_time" content="2020-12-22T14:02:38.481Z">
 <meta property="article:author" content="liuyeqinigqing">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -182,6 +182,7 @@
 <h1 id="2-解压安装"><a href="#2-解压安装" class="headerlink" title="2 解压安装"></a>2 解压安装</h1><h2 id="2-1-解压"><a href="#2-1-解压" class="headerlink" title="2.1 解压"></a>2.1 解压</h2><pre><code>tar -zxvf docker-18.06.3-ce.tgz</code></pre>
 <h2 id="2-2-将解压出来的docker文件夹复制到-usr-bin目录下"><a href="#2-2-将解压出来的docker文件夹复制到-usr-bin目录下" class="headerlink" title="2.2 将解压出来的docker文件夹复制到/usr/bin目录下"></a>2.2 将解压出来的docker文件夹复制到/usr/bin目录下</h2><pre><code>cp docker/* /usr/bin/</code></pre>
 <h2 id="2-3-注册docker服务"><a href="#2-3-注册docker服务" class="headerlink" title="2.3 注册docker服务"></a>2.3 注册docker服务</h2><pre><code>vi /etc/systemd/system/docker.service</code></pre>
+<a id="more"></a>
 <p>docker.service文件内容如下  </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description&#x3D;Docker Application Container Engine</span><br><span class="line">Documentation&#x3D;https:&#x2F;&#x2F;docs.docker.com</span><br><span class="line">After&#x3D;network-online.target firewalld.service</span><br><span class="line">Wants&#x3D;network-online.target</span><br><span class="line">  </span><br><span class="line">[Service]</span><br><span class="line">Type&#x3D;notify</span><br><span class="line"># the default is not to use systemd for cgroups because the delegate issues still</span><br><span class="line"># exists and systemd currently does not support the cgroup feature set required</span><br><span class="line"># for containers run by docker</span><br><span class="line">ExecStart&#x3D;&#x2F;usr&#x2F;bin&#x2F;dockerd --selinux-enabled&#x3D;false --insecure-registry&#x3D;127.0.0.1</span><br><span class="line">ExecReload&#x3D;&#x2F;bin&#x2F;kill -s HUP $MAINPID</span><br><span class="line"># Having non-zero Limit*s causes performance problems due to accounting overhead</span><br><span class="line"># in the kernel. We recommend using cgroups to do container-local accounting.</span><br><span class="line">LimitNOFILE&#x3D;infinity</span><br><span class="line">LimitNPROC&#x3D;infinity</span><br><span class="line">LimitCORE&#x3D;infinity</span><br><span class="line"># Uncomment TasksMax if your systemd version supports it.</span><br><span class="line"># Only systemd 226 and above support this version.</span><br><span class="line">#TasksMax&#x3D;infinity</span><br><span class="line">TimeoutStartSec&#x3D;0</span><br><span class="line"># set delegate yes so that systemd does not reset the cgroups of docker containers</span><br><span class="line">Delegate&#x3D;yes</span><br><span class="line"># kill only the docker process, not all processes in the cgroup</span><br><span class="line">KillMode&#x3D;process</span><br><span class="line"># restart the docker process if it exits prematurely</span><br><span class="line">Restart&#x3D;on-failure</span><br><span class="line">StartLimitBurst&#x3D;3</span><br><span class="line">StartLimitInterval&#x3D;60s</span><br><span class="line">  </span><br><span class="line">[Install]</span><br><span class="line">WantedBy&#x3D;multi-user.target</span><br></pre></td></tr></table></figure>
 
@@ -312,8 +313,8 @@
     </a>
   
   
-    <a href="/2020/09/06/%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%E4%BB%A5%E5%8F%8A%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">缓存穿透,缓存击穿以及缓存雪崩</div>
+    <a href="/2020/09/06/JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JVM垃圾回收算法</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -356,7 +357,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 liuyeqinigqing
+    		&copy; 2021 liuyeqinigqing
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -452,6 +453,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">minio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
             
             <div class="clearfix"></div>

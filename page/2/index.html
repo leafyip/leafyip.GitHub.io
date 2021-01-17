@@ -155,42 +155,34 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-JVM内存模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-nginx配置load-balancer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">JVM内存模型</a>
+      <a class="article-title" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/">nginx配置load-balancer</a>
     </h1>
   
 
         
-        <a href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2020-08-24T12:15:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-24</time>
+        <a href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/" class="archive-article-date">
+  	<time datetime="2020-12-06T09:49:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="JVM主要包含以下区域"><a href="#JVM主要包含以下区域" class="headerlink" title="JVM主要包含以下区域"></a>JVM主要包含以下区域</h1><ul>
-<li>线程共享 : 方法区,本地方法栈</li>
-<li>线程私有 : 程序计数器,JAVA堆,JAVA栈    </li>
-</ul>
-<p><img src="/images/jvm-area.png" alt="Alt text"></p>
-<h2 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1 程序计数器"></a>1 程序计数器</h2><pre><code>程序计数器:线程私有,一块较小的内存空间,记录当前线程所执行的字节码的行号指示器.此内存区域是唯一一个在Java虚拟机规范中没有OutOfMemoryError的区域.  
-以下引用&lt;&lt;深入理解Java虚拟机 JVM高级特性与最佳实践&gt;&gt;</code></pre>
-<p><img src="/images/programCounter.png" alt="Alt text">  </p>
-<h2 id="2-虚拟机栈-JAVA栈"><a href="#2-虚拟机栈-JAVA栈" class="headerlink" title="2 虚拟机栈(JAVA栈)"></a>2 虚拟机栈(JAVA栈)</h2><ul>
-<li>虚拟机栈与程序计数器一样,属于<strong>线程私有</strong>的,生命周期与线程相同.</li>
-<li>每一个方法执行都会创建一个栈帧用于存储<strong>局部变量表</strong>,<strong>操作数栈</strong>,<strong>动态链接</strong>,<strong>方法出口</strong>等信息</li>
-<li>每一个方法从调用直至执行完成的过程,实际就对应着一个栈帧从虚拟机栈<strong>入栈到出栈</strong>的过程</li>
-<li>详细可查看另一篇博客 <a href="/2020/08/25/JAVA%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88/" title="JAVA虚拟机栈">JAVA虚拟机栈</a></li>
-</ul>
-<h2 id="3-JAVA堆"><a href="#3-JAVA堆" class="headerlink" title="3 JAVA堆"></a>3 JAVA堆</h2><pre><code>java堆</code></pre>
-<h2 id="4-本地方法栈"><a href="#4-本地方法栈" class="headerlink" title="4 本地方法栈"></a>4 本地方法栈</h2><h2 id="5-方法区"><a href="#5-方法区" class="headerlink" title="5 方法区"></a>5 方法区</h2>
+        <p>需求 :<br>使用 <code>http://www.minio.muklee.com</code><br>访问minio集群<br><code>http://192.168.26.131:9000,http://192.168.26.132:9000,http://192.168.26.133:9000,http://192.168.26.133:9000</code></p>
+<p>修改windows本地host文件<br>编辑 C:\Windows\System32\drivers\etc\hosts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.26.131 www.minio.muklee.com</span><br></pre></td></tr></table></figure>
+
+<p>注 : 192.168.26.131 为nginx所在机器的ip</p>
+        
+          <a class="article-more-a" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/#more">more >></a>
+        
       
 
       
@@ -203,7 +195,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
         		</li>
       		
 		</ul>
@@ -213,7 +209,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/">展开全文 >></a>
         </p>
       
 
@@ -243,28 +239,33 @@
 
 
   
-    <article id="post-项目中为什么不用select" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-minio分布式扩容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/24/%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8select/">项目中为什么不用select  * ?</a>
+      <a class="article-title" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/">minio分布式扩容</a>
     </h1>
   
 
         
-        <a href="/2020/08/24/%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8select/" class="archive-article-date">
-  	<time datetime="2020-08-24T12:07:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-24</time>
+        <a href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/" class="archive-article-date">
+  	<time datetime="2020-12-05T13:39:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="项目中为什么不用select"><a href="#项目中为什么不用select" class="headerlink" title="项目中为什么不用select *"></a>项目中为什么不用select *</h1><h2 id="1多余字段会产生额外的网络IO"><a href="#1多余字段会产生额外的网络IO" class="headerlink" title="1多余字段会产生额外的网络IO"></a>1多余字段会产生额外的网络IO</h2><h2 id="2-查询指定的字段-mysql优化器可能会利用不同的访问类型-但用-会进行全表扫描"><a href="#2-查询指定的字段-mysql优化器可能会利用不同的访问类型-但用-会进行全表扫描" class="headerlink" title="2 查询指定的字段,mysql优化器可能会利用不同的访问类型.但用*会进行全表扫描."></a>2 查询指定的字段,mysql优化器可能会利用不同的访问类型.但用*会进行全表扫描.</h2><p>常用的查询类型有ALL, index,  range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）</p>
-<h2 id="3-如查询text-blog等大字段-这些字段和普通字段存储在不同空间-会增加I-O次数"><a href="#3-如查询text-blog等大字段-这些字段和普通字段存储在不同空间-会增加I-O次数" class="headerlink" title="3 如查询text blog等大字段,这些字段和普通字段存储在不同空间,会增加I/O次数"></a>3 如查询text blog等大字段,这些字段和普通字段存储在不同空间,会增加I/O次数</h2>
+        <p>查看第一个集群的启动日志</p>
+<p><img src="/images/minio_start.png" alt="Alt text"> </p>
+<p>minio暂不支持动态扩容,所以只能停机扩容.</p>
+<p>minio扩容后原来的数据并不会迁移,往扩容后的集群添加新数据,会优先往空余分区存放.</p>
+        
+          <a class="article-more-a" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/#more">more >></a>
+        
       
 
       
@@ -277,7 +278,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
         		</li>
       		
 		</ul>
@@ -287,7 +288,288 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/24/%E9%A1%B9%E7%9B%AE%E4%B8%AD%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%94%A8select/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-minio分布式部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/">minio分布式部署</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="archive-article-date">
+  	<time datetime="2020-12-03T13:14:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-1-安装前的准备工作"><a href="#1-1-安装前的准备工作" class="headerlink" title="1.1 安装前的准备工作"></a>1.1 安装前的准备工作</h2><p>每个节点都要执行以下的所有操作</p>
+<p>安装ntpdate,保持时间一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntpdate</span><br><span class="line">ntpdate 0.asia.pool.ntp.org</span><br></pre></td></tr></table></figure>
+
+
+<p>安装结构如下<br>一共4个节点,每个节点4个硬盘,磁盘目录如下</p>
+<table>
+<thead>
+<tr>
+<th align="center">IP</th>
+<th align="center">磁盘1</th>
+<th align="center">磁盘2</th>
+<th align="center">磁盘3</th>
+<th align="center">磁盘4</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">192.168.26.131</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
+</tr>
+<tr>
+<td align="center">192.168.26.132</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
+</tr>
+<tr>
+<td align="center">192.168.26.133</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
+</tr>
+<tr>
+<td align="center">192.168.26.134</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
+</tr>
+</tbody></table>
+        
+          <a class="article-more-a" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-minio优点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/">minio优点</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/01/minio%E4%BC%98%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2020-12-01T13:32:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-数据保护"><a href="#1-数据保护" class="headerlink" title="1 数据保护"></a>1 数据保护</h1><p>分布式Minio采用 纠删码来防范多个节点宕机和位衰减bit rot。<br>分布式Minio至少需要4个硬盘，使用分布式Minio自动引入了纠删码功能</p>
+<h1 id="2-高可用"><a href="#2-高可用" class="headerlink" title="2 高可用"></a>2 高可用</h1><p>单机Minio服务存在单点故障，相反，如果是一个有 m 台服务器， n 块硬盘的分布式Minio,只要有 m/2 台服务器或者 m*n/2 及更多硬盘在线，你的数据就是安全的。</p>
+<p>例如，一个16节点的Minio集群，每个节点200块硬盘，就算8台服務器宕机，即大概有1600块硬盘，这个集群仍然是可读的，不过你需要9台服務器在线才能写数据。</p>
+<h1 id="3-一致性"><a href="#3-一致性" class="headerlink" title="3 一致性"></a>3 一致性</h1><p>Minio在分布式和单机模式下，所有读写操作都严格遵守read-after-write和list-after-write一致性模型</p>
+        
+          <a class="article-more-a" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-JVM垃圾收集器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">JVM垃圾收集器</a>
+    </h1>
+  
+
+        
+        <a href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2020-10-15T08:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Serial-Serial-Old收集器"><a href="#1-Serial-Serial-Old收集器" class="headerlink" title="1 Serial/Serial Old收集器"></a>1 Serial/Serial Old收集器</h1><p>Serial是一个单线程的收集器,作用于新生代,使用<code>复制</code>算法.</p>
+<p>Serial Old 是Serial收集器的老年代版本,使用<code>标记-整理</code>算法</p>
+<p>Serial/Serial Old只能使用单核单线程来进行垃圾回收,且收集的时候必须暂停其他所有工作线程(Stop The World),这意味着整个应用将无法对外服务.</p>
+<p><img src="/images/jvm_serial.png" alt="Alt text"></p>
+<p>安全点(safe point) : 程序执行时并非在所有地方都能停顿下来进行GC,能停下来进行GC的点叫左安全点.</p>
+<p>优点<br>简单高效,是client模式下默认的垃圾收集器</p>
+<p>缺点<br>垃圾回收速度慢,频繁地stop the world 导致用户体验差</p>
+        
+          <a class="article-more-a" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">展开全文 >></a>
         </p>
       
 
@@ -319,7 +601,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -331,7 +613,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2020 liuyeqinigqing
+    		&copy; 2021 liuyeqinigqing
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -427,6 +709,26 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">mysql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随笔</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">minio</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
             
             <div class="clearfix"></div>
