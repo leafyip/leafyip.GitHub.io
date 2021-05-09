@@ -155,6 +155,170 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-redis主从复制哨兵模式以及集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">redis主从复制哨兵模式以及集群</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-redis主从复制"><a href="#1-redis主从复制" class="headerlink" title="1.redis主从复制"></a>1.redis主从复制</h1><h2 id="1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点"><a href="#1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点" class="headerlink" title="1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点."></a>1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点.</h2><p>同步策略分为全量同步和增量同步</p>
+<h3 id="1-2-1全量同步"><a href="#1-2-1全量同步" class="headerlink" title="1.2.1全量同步"></a>1.2.1全量同步</h3><pre><code>1 slave初始化的时候,会向master 节点发送PSYNC 命令,第一次连接会触发 全量更新(full resnyc)
+2 主节点收到命令后BGSAVE 后台开启进程来保存镜像(可设置保存镜像到磁盘,或者保存到内存), 并记录RDB生成这段时间内客户端发送的命令
+3 从节点收到主节点的RDB,保存到本地磁盘,清空所有旧数据,并加载主节点的RDB文件
+4 主节点发送快照完毕后,向从节点写入缓存区的命令
+5 从节点接收并执行主节点发送的命令</code></pre>
+<h3 id="1-2-2-增量同步"><a href="#1-2-2-增量同步" class="headerlink" title="1.2.2 增量同步"></a>1.2.2 增量同步</h3><p>master 和slave 内部都会维护一个offset,以此来判断当前的数据集是否相同.<br>slave 还会维护一个 master replication id (如果master 重启后,master replication id 会变化).<br>slave 发送psync 命令 会发送 pysnc master replication id  offset等参数,如果master replication id 或者offset 不存在.那么会进行全量更新</p>
+<p>主从节点正常工作后都是增量同步.主节点每执行完一条命令都会发送给从节点执行.</p>
+<p>注意<br>    -如果多个slave同时向master进行全量更新,master只会生成一个RDB.<br>    -master同时向slave发送RDB文件,有可能导致磁盘IO瓶颈.<br>    -主从模式下，如果主节点宕机，客户端需要手动将连接地址改成slave的地址。</p>
+        
+          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">mysql事务特性(ACID)</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
+  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1原子性（atomicticy）"><a href="#1原子性（atomicticy）" class="headerlink" title="1原子性（atomicticy）"></a>1原子性（atomicticy）</h2><p>事务内的所有操作是原子性的，要么都执行，要么都不执行</p>
+<h2 id="2一致性（consistency）"><a href="#2一致性（consistency）" class="headerlink" title="2一致性（consistency）"></a>2一致性（consistency）</h2><p>事务执行完毕后，数据库从一个一致性状态到另一个一致性状态</p>
+<h2 id="3隔离性（isolation）"><a href="#3隔离性（isolation）" class="headerlink" title="3隔离性（isolation）"></a>3隔离性（isolation）</h2><p>事务之间是互相隔离的</p>
+<h2 id="4持久性-（durability）"><a href="#4持久性-（durability）" class="headerlink" title="4持久性 （durability）"></a>4持久性 （durability）</h2><p>事务一旦提交后，对数据库的改变是永久的</p>
+<p>除非显式开启事务，否则mysql事务是自动提交（auto-commit）的。</p>
+        
+          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-docker不适合安装数据库的原因" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -368,165 +532,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-docker常用命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/13/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">docker常用命令</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/13/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-09-13T12:18:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1环境信息"><a href="#1环境信息" class="headerlink" title="1环境信息"></a>1环境信息</h1><h2 id="1-1查看详细信息"><a href="#1-1查看详细信息" class="headerlink" title="1.1查看详细信息"></a>1.1查看详细信息</h2><pre><code>docker info    </code></pre>
-<h2 id="1-2查看版本信息"><a href="#1-2查看版本信息" class="headerlink" title="1.2查看版本信息"></a>1.2查看版本信息</h2><pre><code>docker version</code></pre>
-<h1 id="2镜像相关"><a href="#2镜像相关" class="headerlink" title="2镜像相关"></a>2镜像相关</h1><h2 id="2-1登录到远程仓库"><a href="#2-1登录到远程仓库" class="headerlink" title="2.1登录到远程仓库"></a>2.1登录到远程仓库</h2><pre><code>docker login -u username -p password</code></pre>
-<h2 id="2-2-搜索镜像"><a href="#2-2-搜索镜像" class="headerlink" title="2.2 搜索镜像"></a>2.2 搜索镜像</h2><pre><code>docker search mysql</code></pre>
-        
-          <a class="article-more-a" href="/2020/09/13/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/13/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-安装docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/10/%E5%AE%89%E8%A3%85docker/">安装docker</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/10/%E5%AE%89%E8%A3%85docker/" class="archive-article-date">
-  	<time datetime="2020-09-10T13:07:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1下载Centos-64位-docker离线安装包"><a href="#1下载Centos-64位-docker离线安装包" class="headerlink" title="1下载Centos 64位 docker离线安装包"></a>1下载Centos 64位 docker离线安装包</h1><p><a target="_blank" rel="noopener" href="https://download.docker.com/linux/static/stable/x86_64/">https://download.docker.com/linux/static/stable/x86_64/</a></p>
-<p>本文下载的是 docker-18.06.3-ce.tgz </p>
-<h1 id="2-解压安装"><a href="#2-解压安装" class="headerlink" title="2 解压安装"></a>2 解压安装</h1><h2 id="2-1-解压"><a href="#2-1-解压" class="headerlink" title="2.1 解压"></a>2.1 解压</h2><pre><code>tar -zxvf docker-18.06.3-ce.tgz</code></pre>
-<h2 id="2-2-将解压出来的docker文件夹复制到-usr-bin目录下"><a href="#2-2-将解压出来的docker文件夹复制到-usr-bin目录下" class="headerlink" title="2.2 将解压出来的docker文件夹复制到/usr/bin目录下"></a>2.2 将解压出来的docker文件夹复制到/usr/bin目录下</h2><pre><code>cp docker/* /usr/bin/</code></pre>
-<h2 id="2-3-注册docker服务"><a href="#2-3-注册docker服务" class="headerlink" title="2.3 注册docker服务"></a>2.3 注册docker服务</h2><pre><code>vi /etc/systemd/system/docker.service</code></pre>
-        
-          <a class="article-more-a" href="/2020/09/10/%E5%AE%89%E8%A3%85docker/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/10/%E5%AE%89%E8%A3%85docker/">展开全文 >></a>
         </p>
       
 

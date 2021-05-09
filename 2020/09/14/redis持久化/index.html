@@ -17,7 +17,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://yoursite.com/images/redis_save_per_second.png">
 <meta property="article:published_time" content="2020-09-14T12:08:04.000Z">
-<meta property="article:modified_time" content="2020-12-22T14:01:59.472Z">
+<meta property="article:modified_time" content="2021-01-17T16:41:43.452Z">
 <meta property="article:author" content="liuyeqinigqing">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
@@ -189,13 +189,13 @@
 <a id="more"></a>
 
 
-<h2 id="2-追加文件-AOF"><a href="#2-追加文件-AOF" class="headerlink" title="2 追加文件(AOF)"></a>2 追加文件(AOF)</h2><p>优点:<br>-数据完整性更高（最多丢失2秒的数据）<br>-该机制对日志文件是追加的，即使追加过程中系统宕机，也不会影响之前已经存在的内容。<br>-</p>
+<h2 id="2-追加文件-AOF"><a href="#2-追加文件-AOF" class="headerlink" title="2 追加文件(AOF)"></a>2 追加文件(AOF)</h2><p>优点:<br>-数据完整性更高（最多丢失1秒的数据）<br>-该机制对日志文件是追加的，即使追加过程中系统宕机，也不会影响之前已经存在的内容。<br>-</p>
 <p>缺点:<br>-相同数据集，AOF文件比RDB大，恢复速度也慢</p>
 <p>-根据同步策略不同，AOF在运行效率下会低于RDB<br>AOF持久化功能可以分为命令追加,文件写入和文件同步.</p>
 <p>-命令追加: 当AOF开启时,redis执行完一个命令后,会以协议格式将被执行的写命令追加到服务器的aof_buf缓冲区的末尾</p>
-<p>-写入和同步 : 每当服务器常规任务函数被执行、 或者事件处理器被执行时， aof.c/flushAppendOnlyFile 函数都会被调用， 这个函数执行以下两个工作：<br>    WRITE：根据条件，将 aof_buf 中的缓存写入到 AOF 文件。<br>    SAVE：根据条件，调用 fsync 或 fdatasync 函数，将 AOF 文件保存到磁盘中。</p>
+<p>[^_^]: #-写入和同步 : 每当服务器常规任务函数被执行、 或者事件处理器被执行时， aof.c/flushAppendOnlyFile 函数都会被调用， 这个函数执行以下两个工作：<br>    WRITE：根据条件，将 aof_buf 中的缓存写入到 AOF 文件。<br>    SAVE：根据条件，调用 fsync 或 fdatasync 函数，将 AOF 文件保存到磁盘中。</p>
 <p>这两个步骤都根据设置的保存模式来执行</p>
-<p>Redis 目前支持三种 AOF 保存模式，它们分别是：</p>
+<p>*/<br>Redis 目前支持三种 AOF 保存模式，它们分别是：</p>
 <p>AOF_FSYNC_NO ：不保存。</p>
 <p>AOF_FSYNC_EVERYSEC ：每一秒钟保存一次。</p>
 <p>AOF_FSYNC_ALWAYS ：每执行一个命令保存一次。</p>

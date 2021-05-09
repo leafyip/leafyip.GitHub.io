@@ -155,6 +155,163 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql聚簇索引和非聚簇索引" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/">mysql聚簇索引和非聚簇索引</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" class="archive-article-date">
+  	<time datetime="2020-09-29T11:44:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>按照索引是否和数据存放在一起,索引可分为聚簇索引和非聚簇索引.</p>
+<h1 id="1聚簇索引"><a href="#1聚簇索引" class="headerlink" title="1聚簇索引"></a>1聚簇索引</h1><p>具体的细节依赖于其实现方式</p>
+<p>以mysql innodb为例,innodb 支持聚簇索引和非聚簇索引<br>两者的结构都是基于B+tree的</p>
+<p>聚簇索引是将索引和数据存放在一起,且数据的排列顺序和索引的排列顺序是一致.一个表只能有一个聚簇索引.<br>默认情况下,会将表的主键作为聚簇索引.<br>如果数据表没有设置主键,mysql会默认生成6个字节的自增主键.</p>
+<p>下图展示了innodb的聚簇索引存放数据的方式</p>
+        
+          <a class="article-more-a" href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-mysql支持的索引类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/">mysql支持的索引类型</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
+  	<time datetime="2020-09-28T12:46:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-B-tree"><a href="#1-B-tree" class="headerlink" title="1 B+tree"></a>1 B+tree</h1><p>B+TREE的演化.<br>推荐一个在线数据结构模拟的网站<br><a target="_blank" rel="noopener" href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html">https://www.cs.usfca.edu/~galles/visualization/Algorithms.html</a></p>
+<p>(1)二叉查找树(binarysearchtree)<br>特征<br>1 左边的节点小于根节点<br>2 右边的节点大于根节点<br>3 左，右子树也是二叉查找树<br>4 没有健值相等的节点</p>
+        
+          <a class="article-more-a" href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql索引的优缺点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -358,170 +515,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2020/09/22/mysql%E6%97%A5%E5%BF%97%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis主从复制哨兵模式以及集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">redis主从复制哨兵模式以及集群</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/" class="archive-article-date">
-  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-redis主从复制"><a href="#1-redis主从复制" class="headerlink" title="1.redis主从复制"></a>1.redis主从复制</h1><h2 id="1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点"><a href="#1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点" class="headerlink" title="1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点."></a>1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点.</h2><p>同步策略分为全量同步和增量同步</p>
-<h3 id="1-2-1全量同步"><a href="#1-2-1全量同步" class="headerlink" title="1.2.1全量同步"></a>1.2.1全量同步</h3><pre><code>1 slave初始化的时候,会向master 节点发送PSYNC 命令,第一次连接会触发 全量更新(full resnyc)
-2 主节点收到命令后BGSAVE 后台开启进程来保存镜像(可设置保存镜像到磁盘,或者保存到内存), 并记录RDB生成这段时间内客户端发送的命令
-3 从节点收到主节点的RDB,保存到本地磁盘,清空所有旧数据,并加载主节点的RDB文件
-4 主节点发送快照完毕后,向从节点写入缓存区的命令
-5 从节点接收并执行主节点发送的命令</code></pre>
-<h3 id="1-2-2-增量同步"><a href="#1-2-2-增量同步" class="headerlink" title="1.2.2 增量同步"></a>1.2.2 增量同步</h3><p>master 和slave 内部都会维护一个offset,以此来判断当前的数据集是否相同.<br>slave 还会维护一个 master replication id (如果master 重启后,master replication id 会变化).<br>slave 发送psync 命令 会发送 pysnc master replication id  offset等参数,如果master replication id 或者offset 不存在.那么会进行全量更新</p>
-<p>主从节点正常工作后都是增量同步.主节点每执行完一条命令都会发送给从节点执行.</p>
-<p>注意<br>    -如果多个slave同时向master进行全量更新,master只会生成一个RDB.<br>    -master同时向slave发送RDB文件,有可能导致磁盘IO瓶颈.<br>    -主从模式下，如果主节点宕机，客户端需要手动将连接地址改成slave的地址。</p>
-        
-          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">mysql事务特性(ACID)</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1原子性（atomicticy）"><a href="#1原子性（atomicticy）" class="headerlink" title="1原子性（atomicticy）"></a>1原子性（atomicticy）</h2><p>事务内的所有操作是原子性的，要么都执行，要么都不执行</p>
-<h2 id="2一致性（consistency）"><a href="#2一致性（consistency）" class="headerlink" title="2一致性（consistency）"></a>2一致性（consistency）</h2><p>事务执行完毕后，数据库从一个一致性状态到另一个一致性状态</p>
-<h2 id="3隔离性（isolation）"><a href="#3隔离性（isolation）" class="headerlink" title="3隔离性（isolation）"></a>3隔离性（isolation）</h2><p>事务之间是互相隔离的</p>
-<h2 id="4持久性-（durability）"><a href="#4持久性-（durability）" class="headerlink" title="4持久性 （durability）"></a>4持久性 （durability）</h2><p>事务一旦提交后，对数据库的改变是永久的</p>
-<p>除非显式开启事务，否则mysql事务是自动提交（auto-commit）的。</p>
-        
-          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">展开全文 >></a>
         </p>
       
 

@@ -155,6 +155,165 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-如何判断对象是否可回收" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/">如何判断对象是否可回收</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/" class="archive-article-date">
+  	<time datetime="2020-09-03T13:11:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="如何判断对象是否可以回收？"><a href="#如何判断对象是否可以回收？" class="headerlink" title="如何判断对象是否可以回收？"></a>如何判断对象是否可以回收？</h1><h2 id="1引用计数法。"><a href="#1引用计数法。" class="headerlink" title="1引用计数法。"></a>1引用计数法。</h2><p>如果对象有引用，那么计数器+1。但是相互引用会导致这两个对象一直不能被回收。</p>
+<h2 id="2-GC-ROOT可达性算法。"><a href="#2-GC-ROOT可达性算法。" class="headerlink" title="2 GC ROOT可达性算法。"></a>2 GC ROOT可达性算法。</h2><ul>
+<li>将每一个对象都看作一个节点，并且选取指定的对象作为根节点。  </li>
+<li>从根节点往下搜索，走过的路径称为引用链。</li>
+<li>当一个对象有引用链连接到根节点，证明这个对象是可达的。</li>
+<li>没有引用链的对象（不可达的对象）可以被jvm回收。
+        
+          <a class="article-more-a" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-redis8种淘汰策略" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/">redis8种淘汰策略</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/" class="archive-article-date">
+  	<time datetime="2020-09-03T12:34:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="redis键的淘汰策略"><a href="#redis键的淘汰策略" class="headerlink" title="redis键的淘汰策略"></a>redis键的淘汰策略</h1><h2 id="1-noevication"><a href="#1-noevication" class="headerlink" title="1 noevication"></a>1 noevication</h2><p>不删除，内存过大直接报错</p>
+<h2 id="2-allkeys-random"><a href="#2-allkeys-random" class="headerlink" title="2 allkeys-random"></a>2 allkeys-random</h2><p>针对所有的key随机删除</p>
+<h2 id="3-volatile-random"><a href="#3-volatile-random" class="headerlink" title="3 volatile-random"></a>3 volatile-random</h2><p>针对过期的key随机删除</p>
+        
+          <a class="article-more-a" href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
