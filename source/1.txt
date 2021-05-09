@@ -1,0 +1,97 @@
+
+
+
+
+
+
+docker run -d --restart=always --name rabbit -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_PASS=unipower123 -p 15672:15672 -p 5672:5672 rabbitmq 
+22222
+
+docker run -d --name rabbitmq -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_PASS=unipower123 -p 15672:15672 -p 5672:5672 rabbitmq:latest
+
+docker run -d --restart=always --name redis -p 6379:6379 redis --requirepass "unipower123"
+
+222
+222
+export MINIO_ACCESS_KEY=admin
+export MINIO_SECRET_KEY=AAbb123!@#
+nohup ./minio server http://192.168.26.131/home/minio/export1  \
+               http://192.168.26.132/home/minio/export1  \          
+               http://192.168.26.133/home/minio/export1  \
+               http://192.168.26.134/home/minio/export1 > out.log 2>&1 &
+			   
+			   
+			   
+nohup ./minio server http://192.168.3.192/export2 http://192.168.3.193/export3 http://192.168.3.194/export4 http://192.168.3.195/export5 > /opt/data/minio/minio.log 2>&1 &
+			   
+chmod +x minio
+
+
+firewall-cmd --zone=public --add-port=9000/tcp --permanent
+firewall-cmd --reload
+firewall-cmd --list-ports
+
+export MINIO_ACCESS_KEY=admin
+export MINIO_SECRET_KEY=AAbb1234
+
+nohup ./minio server http://192.168.26.131/home/minio/export1  http://192.168.26.132/home/minio/export1  http://192.168.26.133/home/minio/export1 http://192.168.26.134/home/minio/export1 > nohup.out 2>&1 &
+
+
+
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+
+
+curl http://192.168.26.131:9000/mybucket/ -F x-amz-date=20201206T094754Z -F x-amz-signature=f1ec7d8f4f41408887859fb04001a2d20d653be9679b79790f89c6bdc41a1053 -F bucket=mybucket -F policy=eyJleHBpcmF0aW9uIjoiMjAyMC0xMi0wNlQxMzo0Nzo1NFoiLCJjb25kaXRpb25zIjpbWyJlcSIsIiRidWNrZXQiLCJteWJ1Y2tldCJdLFsiZXEiLCIka2V5IiwiMS50eHQiXSxbImVxIiwiJHgtYW16LWRhdGUiLCIyMDIwMTIwNlQwOTQ3NTRaIl0sWyJlcSIsIiR4LWFtei1hbGdvcml0aG0iLCJBV1M0LUhNQUMtU0hBMjU2Il0sWyJlcSIsIiR4LWFtei1jcmVkZW50aWFsIiwiYWRtaW4vMjAyMDEyMDYvdXMtZWFzdC0xL3MzL2F3czRfcmVxdWVzdCJdXX0= -F x-amz-algorithm=AWS4-HMAC-SHA256 -F x-amz-credential=admin/20201206/us-east-1/s3/aws4_request -F key=1.txt -F file=@/home/minio/nohup.out
+
+
+
+
+
+
+
+
+
+
+索引的优缺点
+索引是存储引擎用于快速找到记录的一种数据结构
+索引犹如书的目录，通过目录，可以快速定位到所需的章节。
+
+索引的优点
+
+1减少服务器需要扫描的数据量
+2减少服务器的临时表和排序
+3将随机io变成顺序io，提高io性能
+
+索引的缺点
+
+mysql索引的类型
+1 B+TREE
+
+2 hash
+
+3 空间索引
+
+4 全文索引
+
+创建索引的策略
+
+1需要表达式或函数计算的列不适合建立索引
+
+
+2列的离散性(选择性)越低，越不适合建立索引。
+
+
+
+3模拟hash索引
+
+
+4前缀索引
+
+
+5 复合索引（多列索引）
+
+
+
+
+- 详细可查看另一篇博客 {% post_link JAVA虚拟机栈 %}

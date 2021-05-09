@@ -1,0 +1,27 @@
+
+
+
+
+
+索引失效
+
+create table student {
+id int,
+name varchar,
+age int ,
+key(age),
+key(name),
+}
+
+1 拥有表达式或者函数计算
+
+如select * from student where age +1 =5;
+
+2 范围查询 后面的索引列
+如 select * from student where age > 18 and age < 22 and name = 'zhangsan'
+如果没有优化查询,name列是不会使用索引的
+
+但如果将范围查询转换成等值查询,则范围查询后面的列依旧可以使用索引.
+select * from student where age in ( 18,22) and name = 'zhangsan'
+
+
