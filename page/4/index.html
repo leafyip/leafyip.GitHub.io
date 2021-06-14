@@ -155,82 +155,50 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-MQ技术选型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-CAP定理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/07/MQ%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/">MQ技术选型</a>
+      <a class="article-title" href="/2020/12/09/CAP%E5%AE%9A%E7%90%86/">CAP定理</a>
     </h1>
   
 
         
-        <a href="/2020/10/07/MQ%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2020-10-07T08:16:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-07</time>
+        <a href="/2020/12/09/CAP%E5%AE%9A%E7%90%86/" class="archive-article-date">
+  	<time datetime="2020-12-09T11:47:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>业内主流的MQ有 </p>
+        <h1 id="C-Consistency"><a href="#C-Consistency" class="headerlink" title="C(Consistency)"></a>C(Consistency)</h1><p>一致性 : 在分布式系统中,一致性是指数据在多个系统中能否保持一致的特性.<br>即所有节点的数据要保持一致</p>
+<h1 id="A-availability"><a href="#A-availability" class="headerlink" title="A (availability)"></a>A (availability)</h1><p>可用性 : 是指系统所提供的服务必须要一直处于可用的状态,对于用户的每一个请求操作总是能够在有限的时间内返回结果.</p>
+<h1 id="P-Partition-tolerance"><a href="#P-Partition-tolerance" class="headerlink" title="P (Partition tolerance)"></a>P (Partition tolerance)</h1><p>分区容错性 : 是指分布式系统中在遇到任何网络分区故障的时候,仍然能够保证对外提供一致性和可用性的服务,除非是整个网络环境都发生了故障.</p>
+<p>一个分布式系统无法同时满足CAP.</p>
 <table>
 <thead>
 <tr>
-<th align="center">-</th>
-<th align="center">activemq</th>
-<th align="center">rabbitmq</th>
-<th align="center">rocketmq</th>
-<th align="center">kafka</th>
+<th align="center">操作</th>
+<th align="center">说明</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">开发语言</td>
-<td align="center">java</td>
-<td align="center">elang</td>
-<td align="center">java</td>
-<td align="center">java</td>
+<td align="center">放弃 P</td>
+<td align="center">所有系统都在同一个节点,那就不会出现网络分区.但放弃P后,系统也就无法拓展了</td>
 </tr>
 <tr>
-<td align="center">单机吞吐量</td>
-<td align="center">万级</td>
-<td align="center">万级</td>
-<td align="center">十万级</td>
-<td align="center">十万级</td>
+<td align="center">放弃 A</td>
+<td align="center">当遇到网络分区时,系统需要等待一段时间才能对外提供服务.在此等待时间,系统是不可用的</td>
 </tr>
 <tr>
-<td align="center">时效性</td>
-<td align="center">ms级</td>
-<td align="center">us级别(1ms=1000us)</td>
-<td align="center">ms级</td>
-<td align="center">ms级</td>
-</tr>
-<tr>
-<td align="center">可用性</td>
-<td align="center">主从架构的高可用</td>
-<td align="center">主从架构的高可用</td>
-<td align="center">分布式架构高可用</td>
-<td align="center">分布式架构高可用</td>
-</tr>
-<tr>
-<td align="center">持久化</td>
-<td align="center">支持</td>
-<td align="center">支持</td>
-<td align="center">支持</td>
-<td align="center">支持</td>
-</tr>
-<tr>
-<td align="center">活跃程度</td>
-<td align="center">不活跃</td>
-<td align="center">活跃</td>
-<td align="center">活跃</td>
-<td align="center">活跃</td>
+<td align="center">放弃 C</td>
+<td align="center">当发生网络分区时,系统数据会保持最终的数据一致性. 但在某个时间窗口P内的数据是不一致的,时间窗口P的值取决于数据副本在不同节点复制的时间时长</td>
 </tr>
 </tbody></table>
-<p>总结<br>大数据领域,如实时计算,日志采集等场景,建议使用kafka.<br>大型公司,技术研发能力能,能参与源码修改,建议使用rocketmq.万一社区没人维护了,公司内部还能自己维护</p>
-<p>中小公司,建议使用rabbitmq.</p>
 
       
 
@@ -244,7 +212,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
         		</li>
       		
 		</ul>
@@ -254,7 +222,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/07/MQ%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/09/CAP%E5%AE%9A%E7%90%86/">展开全文 >></a>
         </p>
       
 
@@ -284,35 +252,33 @@
 
 
   
-    <article id="post-MySQL主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-mcClient命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">MySQL主从复制</a>
+      <a class="article-title" href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/">mcClient命令</a>
     </h1>
   
 
         
-        <a href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2020-10-05T10:54:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
+        <a href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/" class="archive-article-date">
+  	<time datetime="2020-12-08T12:58:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-MySQL主从复制原理"><a href="#1-MySQL主从复制原理" class="headerlink" title="1 MySQL主从复制原理"></a>1 MySQL主从复制原理</h1><p>MySQL支持将数据从一台服务器复制到另一台或多台.一台住库的数据可以同步到多台备库,备库自身也可以配置成另外一台服务器的主库.<br>MySQL支持两种复制方式:<br>基于 语句 的复制<br>基于 行 的复制(5.1版本后才支持)</p>
-<p>复制过程</p>
-<ol>
-<li>主库将修改的记录写入到二进制日志(bin log)中</li>
-<li>备库新建一个IO线程,连接主库.<br>主库启动一个特殊的二进制转储(binlog dump)线程,该线程将二进制内容发送到备库,如果binlog dump线程追赶上了主库,即已经将主库所有二进制日志都发送给备库,它会进入休眠,直到主库有新的记录写入到二进制日志中才会被唤醒.<br>备库IO线程将接收到的事件记录到中继日志中</li>
-<li>备库SQL线程从中继日志中读取事件并执行</li>
-</ol>
+        <p>minio支持客户端使用命令来操作服务器的数据</p>
+<h1 id="1-安装mc客户端"><a href="#1-安装mc客户端" class="headerlink" title="1 安装mc客户端"></a>1 安装mc客户端</h1><p>去minio中国镜像下载linux mc客户端<br><code>http://dl.minio.org.cn/client/mc/release/</code></p>
+<p>下载完成后,给予权限<br><code>chmod +x /home/minio/mc</code></p>
+<p>添加到环境变量<br><code>vi /etc/profile</code></p>
+<p>在文件末尾添加<br><code>export PATH=&quot;/home/minio:$PATH&quot;</code></p>
         
-          <a class="article-more-a" href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/#more">more >></a>
+          <a class="article-more-a" href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/#more">more >></a>
         
       
 
@@ -326,7 +292,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
         		</li>
       		
 		</ul>
@@ -336,7 +302,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/">展开全文 >></a>
         </p>
       
 
@@ -366,34 +332,33 @@
 
 
   
-    <article id="post-消息队列(MQ)的优缺点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-nginx配置load-balancer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/">消息队列(MQ)的优缺点</a>
+      <a class="article-title" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/">nginx配置load-balancer</a>
     </h1>
   
 
         
-        <a href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-10-05T09:48:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
+        <a href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/" class="archive-article-date">
+  	<time datetime="2020-12-06T09:49:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><h2 id="1-异步"><a href="#1-异步" class="headerlink" title="1 异步"></a>1 异步</h2><p>假如系统是同步调用,A本地执行需要300ms,A调用B,网络通信以及B执行时间加起来也是300ms,A调用C网络通信以及C执行时间加起来也是300ms.<br>那用户等待的总时长为300ms + 300ms + 300ms = 900ms , 假如还有系统D,E,F呢….</p>
-<p><img src="/images/mq_sync.png" alt="Alt text"> </p>
-<p>如果系统之间的接口可以异步调用,那可以考虑引入MQ消息中间件<br>引入消息中间间后系统的调用如图</p>
-<p><img src="/images/mq_async.png" alt="Alt text"> </p>
-<p>用户调用系统A<br>系统A执行成功后往MQ注册消息<br>然后返回结果给用户</p>
-<p>系统B,C,D…N 监听MQ中的数据,然后执行对应的业务逻辑</p>
+        <p>需求 :<br>使用 <code>http://www.minio.muklee.com</code><br>访问minio集群<br><code>http://192.168.26.131:9000,http://192.168.26.132:9000,http://192.168.26.133:9000,http://192.168.26.133:9000</code></p>
+<p>修改windows本地host文件<br>编辑 C:\Windows\System32\drivers\etc\hosts</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.26.131 www.minio.muklee.com</span><br></pre></td></tr></table></figure>
+
+<p>注 : 192.168.26.131 为nginx所在机器的ip</p>
         
-          <a class="article-more-a" href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/#more">more >></a>
+          <a class="article-more-a" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/#more">more >></a>
         
       
 
@@ -407,7 +372,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
         		</li>
       		
 		</ul>
@@ -417,7 +386,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/">展开全文 >></a>
         </p>
       
 
@@ -447,71 +416,153 @@
 
 
   
-    <article id="post-InnoDB和Myasiam存储引擎的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-minio分布式扩容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/03/InnoDB%E5%92%8CMyasiam%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB/">InnoDB和Myasiam存储引擎的区别</a>
+      <a class="article-title" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/">minio分布式扩容</a>
     </h1>
   
 
         
-        <a href="/2020/10/03/InnoDB%E5%92%8CMyasiam%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
-  	<time datetime="2020-10-03T08:28:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-03</time>
+        <a href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/" class="archive-article-date">
+  	<time datetime="2020-12-05T13:39:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <table>
+        <p>查看第一个集群的启动日志</p>
+<p><img src="/images/minio_start.png" alt="Alt text"> </p>
+<p>minio暂不支持动态扩容,所以只能停机扩容.</p>
+<p>minio扩容后原来的数据并不会迁移,往扩容后的集群添加新数据,会优先往空余分区存放.</p>
+        
+          <a class="article-more-a" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-minio分布式部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/">minio分布式部署</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="archive-article-date">
+  	<time datetime="2020-12-03T13:14:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-1-安装前的准备工作"><a href="#1-1-安装前的准备工作" class="headerlink" title="1.1 安装前的准备工作"></a>1.1 安装前的准备工作</h2><p>每个节点都要执行以下的所有操作</p>
+<p>安装ntpdate,保持时间一致</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntpdate</span><br><span class="line">ntpdate 0.asia.pool.ntp.org</span><br></pre></td></tr></table></figure>
+
+
+<p>安装结构如下<br>一共4个节点,每个节点4个硬盘,磁盘目录如下</p>
+<table>
 <thead>
 <tr>
-<th align="center">\</th>
-<th align="center">InnoDB</th>
-<th align="center">Mysiam</th>
+<th align="center">IP</th>
+<th align="center">磁盘1</th>
+<th align="center">磁盘2</th>
+<th align="center">磁盘3</th>
+<th align="center">磁盘4</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">事务和外键</td>
-<td align="center">支持</td>
-<td align="center">不支持</td>
+<td align="center">192.168.26.131</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
 </tr>
 <tr>
-<td align="center">锁的级别</td>
-<td align="center">行锁,页锁,表锁</td>
-<td align="center">表锁</td>
+<td align="center">192.168.26.132</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
 </tr>
 <tr>
-<td align="center">支持索引的类别</td>
-<td align="center">支持聚簇索引和非聚簇索引</td>
-<td align="center">仅支持非聚簇索引</td>
+<td align="center">192.168.26.133</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="center">支持Full-Text(全文索引),B-tree,自适应Hash,不支持R-Tree(空间索引)</td>
-<td align="center">支持B-Tree,R-Tree,Full-Text,不支持Hash;</td>
-</tr>
-<tr>
-<td align="center"></td>
-<td align="center">不支持压缩索引</td>
-<td align="center">支持压缩索引</td>
-</tr>
-<tr>
-<td align="center">是否维护表记录总数</td>
-<td align="center">否</td>
-<td align="center">是</td>
-</tr>
-<tr>
-<td align="center">其他特性</td>
-<td align="center">插入缓冲,二次写,自适应hash,预读</td>
-<td align="center">-</td>
+<td align="center">192.168.26.134</td>
+<td align="center">/home/minio/export1</td>
+<td align="center">/home/minio/export2</td>
+<td align="center">/home/minio/export3</td>
+<td align="center">/home/minio/export4</td>
 </tr>
 </tbody></table>
-
+        
+          <a class="article-more-a" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/#more">more >></a>
+        
       
 
       
@@ -524,7 +575,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
         		</li>
       		
 		</ul>
@@ -534,83 +585,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/03/InnoDB%E5%92%8CMyasiam%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-mysql覆盖索引与回表查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/01/mysql%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E4%B8%8E%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2/">mysql覆盖索引与回表查询</a>
-    </h1>
-  
-
-        
-        <a href="/2020/10/01/mysql%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E4%B8%8E%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
-  	<time datetime="2020-10-01T13:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h1><p>如果一个索引包含(或者说覆盖)所有需要查询的字段的值,称之为覆盖索引</p>
-<p>mysql中,hash索引,全文索引,空间索引都不会存储列的值,所以覆盖索引只能是B+Tree类型</p>
-<h1 id="回表查询"><a href="#回表查询" class="headerlink" title="回表查询"></a>回表查询</h1><p>先通过普通索引定位到主键的值,在根据主键的值定位数据.<br>相当于遍历了2次B+Tree,第一次是普通索引,第二次是主键索引</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/01/mysql%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E4%B8%8E%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/">展开全文 >></a>
         </p>
       
 
@@ -642,7 +617,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -770,6 +745,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
             
             <div class="clearfix"></div>

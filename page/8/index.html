@@ -155,112 +155,37 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-如何判断对象是否可回收" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-redis主从复制哨兵模式以及集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/">如何判断对象是否可回收</a>
+      <a class="article-title" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">redis主从复制哨兵模式以及集群</a>
     </h1>
   
 
         
-        <a href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/" class="archive-article-date">
-  	<time datetime="2020-09-03T13:11:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-03</time>
+        <a href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/" class="archive-article-date">
+  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="如何判断对象是否可以回收？"><a href="#如何判断对象是否可以回收？" class="headerlink" title="如何判断对象是否可以回收？"></a>如何判断对象是否可以回收？</h1><h2 id="1引用计数法。"><a href="#1引用计数法。" class="headerlink" title="1引用计数法。"></a>1引用计数法。</h2><p>如果对象有引用，那么计数器+1。但是相互引用会导致这两个对象一直不能被回收。</p>
-<h2 id="2-GC-ROOT可达性算法。"><a href="#2-GC-ROOT可达性算法。" class="headerlink" title="2 GC ROOT可达性算法。"></a>2 GC ROOT可达性算法。</h2><ul>
-<li>将每一个对象都看作一个节点，并且选取指定的对象作为根节点。  </li>
-<li>从根节点往下搜索，走过的路径称为引用链。</li>
-<li>当一个对象有引用链连接到根节点，证明这个对象是可达的。</li>
-<li>没有引用链的对象（不可达的对象）可以被jvm回收。
+        <h1 id="1-redis主从复制"><a href="#1-redis主从复制" class="headerlink" title="1.redis主从复制"></a>1.redis主从复制</h1><h2 id="1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点"><a href="#1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点" class="headerlink" title="1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点."></a>1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点.</h2><p>同步策略分为全量同步和增量同步</p>
+<h3 id="1-2-1全量同步"><a href="#1-2-1全量同步" class="headerlink" title="1.2.1全量同步"></a>1.2.1全量同步</h3><pre><code>1 slave初始化的时候,会向master 节点发送PSYNC 命令,第一次连接会触发 全量更新(full resnyc)
+2 主节点收到命令后BGSAVE 后台开启进程来保存镜像(可设置保存镜像到磁盘,或者保存到内存), 并记录RDB生成这段时间内客户端发送的命令
+3 从节点收到主节点的RDB,保存到本地磁盘,清空所有旧数据,并加载主节点的RDB文件
+4 主节点发送快照完毕后,向从节点写入缓存区的命令
+5 从节点接收并执行主节点发送的命令</code></pre>
+<h3 id="1-2-2-增量同步"><a href="#1-2-2-增量同步" class="headerlink" title="1.2.2 增量同步"></a>1.2.2 增量同步</h3><p>master 和slave 内部都会维护一个offset,以此来判断当前的数据集是否相同.<br>slave 还会维护一个 master replication id (如果master 重启后,master replication id 会变化).<br>slave 发送psync 命令 会发送 pysnc master replication id  offset等参数,如果master replication id 或者offset 不存在.那么会进行全量更新</p>
+<p>主从节点正常工作后都是增量同步.主节点每执行完一条命令都会发送给从节点执行.</p>
+<p>注意<br>    -如果多个slave同时向master进行全量更新,master只会生成一个RDB.<br>    -master同时向slave发送RDB文件,有可能导致磁盘IO瓶颈.<br>    -主从模式下，如果主节点宕机，客户端需要手动将连接地址改成slave的地址。</p>
         
-          <a class="article-more-a" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/03/%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E5%9B%9E%E6%94%B6/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-redis8种淘汰策略" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/">redis8种淘汰策略</a>
-    </h1>
-  
-
-        
-        <a href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/" class="archive-article-date">
-  	<time datetime="2020-09-03T12:34:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="redis键的淘汰策略"><a href="#redis键的淘汰策略" class="headerlink" title="redis键的淘汰策略"></a>redis键的淘汰策略</h1><h2 id="1-noevication"><a href="#1-noevication" class="headerlink" title="1 noevication"></a>1 noevication</h2><p>不删除，内存过大直接报错</p>
-<h2 id="2-allkeys-random"><a href="#2-allkeys-random" class="headerlink" title="2 allkeys-random"></a>2 allkeys-random</h2><p>针对所有的key随机删除</p>
-<h2 id="3-volatile-random"><a href="#3-volatile-random" class="headerlink" title="3 volatile-random"></a>3 volatile-random</h2><p>针对过期的key随机删除</p>
-        
-          <a class="article-more-a" href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/#more">more >></a>
+          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/#more">more >></a>
         
       
 
@@ -284,7 +209,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/03/redis8%E7%A7%8D%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">展开全文 >></a>
         </p>
       
 
@@ -314,26 +239,33 @@
 
 
   
-    <article id="post-随笔" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-mysql事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/01/%E9%9A%8F%E7%AC%94/">随笔</a>
+      <a class="article-title" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">mysql事务特性(ACID)</a>
     </h1>
   
 
         
-        <a href="/2020/09/01/%E9%9A%8F%E7%AC%94/" class="archive-article-date">
-  	<time datetime="2020-09-01T05:40:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-01</time>
+        <a href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
+  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
+        <h2 id="1原子性（atomicticy）"><a href="#1原子性（atomicticy）" class="headerlink" title="1原子性（atomicticy）"></a>1原子性（atomicticy）</h2><p>事务内的所有操作是原子性的，要么都执行，要么都不执行</p>
+<h2 id="2一致性（consistency）"><a href="#2一致性（consistency）" class="headerlink" title="2一致性（consistency）"></a>2一致性（consistency）</h2><p>事务执行完毕后，数据库从一个一致性状态到另一个一致性状态</p>
+<h2 id="3隔离性（isolation）"><a href="#3隔离性（isolation）" class="headerlink" title="3隔离性（isolation）"></a>3隔离性（isolation）</h2><p>事务之间是互相隔离的</p>
+<h2 id="4持久性-（durability）"><a href="#4持久性-（durability）" class="headerlink" title="4持久性 （durability）"></a>4持久性 （durability）</h2><p>事务一旦提交后，对数据库的改变是永久的</p>
+<p>除非显式开启事务，否则mysql事务是自动提交（auto-commit）的。</p>
+        
+          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/#more">more >></a>
         
       
 
@@ -347,7 +279,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -357,7 +289,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/01/%E9%9A%8F%E7%AC%94/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">展开全文 >></a>
         </p>
       
 
@@ -387,35 +319,111 @@
 
 
   
-    <article id="post-JVM内存模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-docker不适合安装数据库的原因" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">JVM内存模型</a>
+      <a class="article-title" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/">docker不适合安装数据库的原因</a>
     </h1>
   
 
         
-        <a href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2020-08-24T12:15:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-24</time>
+        <a href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/" class="archive-article-date">
+  	<time datetime="2020-09-17T12:51:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>JVM运行时数据区主要包含以下区域 程序计数器,JAVA堆,虚拟机(JAVA)栈,方法区(元空间),本地方法栈</p>
-<p> 其中</p>
-<ul>
-<li>线程共享 : 方法区,JAVA堆</li>
-<li>线程私有 : 程序计数器,本地方法栈,JAVA栈    </li>
+        <h2 id="1-数据安全问题"><a href="#1-数据安全问题" class="headerlink" title="1.数据安全问题"></a>1.数据安全问题</h2><p>当容器被删除时，容器内的数据也会被删除。虽然docker可以挂载数据卷来存储数据，但docker 的volumes是围绕Union FS镜像来提供持久化存储，数据安全缺乏保证。<br>当容器崩溃或者数据库奔溃等，可能会损坏数据。</p>
+<h2 id="2-磁盘IO性能问题"><a href="#2-磁盘IO性能问题" class="headerlink" title="2.磁盘IO性能问题"></a>2.磁盘IO性能问题</h2><p>数据库对磁盘操作频繁，如果一台docker部署多个mysql，会产生严重的IO瓶颈，降低数据库的性能。</p>
+<h2 id="3-网络问题"><a href="#3-网络问题" class="headerlink" title="3.网络问题"></a>3.网络问题</h2><p>假如数据库都安装在物理机，那么只需要保证物理机之间的网络是互通的，数据库主从复制就可以顺利进行。<br>但docker是使用网络虚拟化，在数据库与物理机之前多了一层隔离层，如果docker网络有问题会影响主从复制。</p>
+        
+          <a class="article-more-a" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-docker下安装mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/">docker下安装mysql</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/" class="archive-article-date">
+  	<time datetime="2020-09-16T12:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="此篇博客仅供学习使用-实际生产环境中-mysql-redis等数据库不建议安装在容器中"><a href="#此篇博客仅供学习使用-实际生产环境中-mysql-redis等数据库不建议安装在容器中" class="headerlink" title="此篇博客仅供学习使用,实际生产环境中 mysql,redis等数据库不建议安装在容器中."></a>此篇博客仅供学习使用,实际生产环境中 mysql,redis等数据库不建议安装在容器中.</h1><ul>
+<li>详细可查看另一篇博客 <a href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/" title="docker不适合安装数据库的原因">docker不适合安装数据库的原因</a></li>
 </ul>
-<p><img src="/images/jvm-area.png" alt="Alt text"></p>
+<h2 id="1搜索MySQL镜像"><a href="#1搜索MySQL镜像" class="headerlink" title="1搜索MySQL镜像"></a>1搜索MySQL镜像</h2><pre><code>docker search mysql</code></pre>
+<p>我在搜索过程中报了如下错误<br>     Error response from daemon: Get <a target="_blank" rel="noopener" href="https://index.docker.io/v1/search?q=mysql&amp;n=25">https://index.docker.io/v1/search?q=mysql&amp;n=25</a>: x509: certificate has expired or is not yet valid</p>
         
-          <a class="article-more-a" href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/#more">more >></a>
+          <a class="article-more-a" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/#more">more >></a>
         
       
 
@@ -429,7 +437,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
         		</li>
       		
 		</ul>
@@ -439,7 +447,91 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/08/24/JVM%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-redis持久化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/">redis持久化</a>
+    </h1>
+  
+
+        
+        <a href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/" class="archive-article-date">
+  	<time datetime="2020-09-14T12:08:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="redis持久化策略"><a href="#redis持久化策略" class="headerlink" title="redis持久化策略"></a>redis持久化策略</h1><p>redis官方持久化方式有两种</p>
+<ul>
+<li><p>快照(RDB) : 保存了redis某个时间点的数据集</p>
+</li>
+<li><p>追加文件(AOF) : 记录redis执行的所有操作命令,并在服务器启动时,通过执行这些命令来还原数据</p>
+</li>
+</ul>
+<h2 id="1-快照-RDB"><a href="#1-快照-RDB" class="headerlink" title="1 快照(RDB)"></a>1 快照(RDB)</h2><p>优点<br>    1. 通过合理配置,可以很方便地讲数据还原到某个特定的时间.<br>    2. RDB文件比AOF文件占用的空间小,且恢复数据的速度也更快<br>    3. 如果创建RDB文件时出现错误,不会影响到之前保存的版本.</p>
+<p>缺点<br>    a 会丢失未来得及生成快照的数据<br>    b fork子进程占用的内存会随着数据的增加而增加,恢复时间也会相应增加.</p>
+        
+          <a class="article-more-a" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/">展开全文 >></a>
         </p>
       
 
@@ -471,7 +563,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+      <a class="extend prev" rel="prev" href="/page/7/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -599,6 +691,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
             
             <div class="clearfix"></div>

@@ -155,33 +155,32 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-mysql聚簇索引和非聚簇索引" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-minio优点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/">mysql聚簇索引和非聚簇索引</a>
+      <a class="article-title" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/">minio优点</a>
     </h1>
   
 
         
-        <a href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/" class="archive-article-date">
-  	<time datetime="2020-09-29T11:44:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-29</time>
+        <a href="/2020/12/01/minio%E4%BC%98%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2020-12-01T13:32:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>按照索引是否和数据存放在一起,索引可分为聚簇索引和非聚簇索引.</p>
-<h1 id="1聚簇索引"><a href="#1聚簇索引" class="headerlink" title="1聚簇索引"></a>1聚簇索引</h1><p>具体的细节依赖于其实现方式</p>
-<p>以mysql innodb为例,innodb 支持聚簇索引和非聚簇索引<br>两者的结构都是基于B+tree的</p>
-<p>聚簇索引是将索引和数据存放在一起,且数据的排列顺序和索引的排列顺序是一致.一个表只能有一个聚簇索引.<br>默认情况下,会将表的主键作为聚簇索引.<br>如果数据表没有设置主键,mysql会默认生成6个字节的自增主键.</p>
-<p>下图展示了innodb的聚簇索引存放数据的方式</p>
+        <h1 id="1-数据保护"><a href="#1-数据保护" class="headerlink" title="1 数据保护"></a>1 数据保护</h1><p>分布式Minio采用 纠删码来防范多个节点宕机和位衰减bit rot。<br>分布式Minio至少需要4个硬盘，使用分布式Minio自动引入了纠删码功能</p>
+<h1 id="2-高可用"><a href="#2-高可用" class="headerlink" title="2 高可用"></a>2 高可用</h1><p>单机Minio服务存在单点故障，相反，如果是一个有 m 台服务器， n 块硬盘的分布式Minio,只要有 m/2 台服务器或者 m*n/2 及更多硬盘在线，你的数据就是安全的。</p>
+<p>例如，一个16节点的Minio集群，每个节点200块硬盘，就算8台服務器宕机，即大概有1600块硬盘，这个集群仍然是可读的，不过你需要9台服務器在线才能写数据。</p>
+<h1 id="3-一致性"><a href="#3-一致性" class="headerlink" title="3 一致性"></a>3 一致性</h1><p>Minio在分布式和单机模式下，所有读写操作都严格遵守read-after-write和list-after-write一致性模型</p>
         
-          <a class="article-more-a" href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/#more">more >></a>
+          <a class="article-more-a" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/#more">more >></a>
         
       
 
@@ -195,7 +194,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
         		</li>
       		
 		</ul>
@@ -205,7 +204,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/29/mysql%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/">展开全文 >></a>
         </p>
       
 
@@ -235,30 +234,35 @@
 
 
   
-    <article id="post-mysql支持的索引类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-JVM垃圾收集器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/">mysql支持的索引类型</a>
+      <a class="article-title" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">JVM垃圾收集器</a>
     </h1>
   
 
         
-        <a href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2020-09-28T12:46:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-28</time>
+        <a href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="archive-article-date">
+  	<time datetime="2020-10-15T08:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-B-tree"><a href="#1-B-tree" class="headerlink" title="1 B+tree"></a>1 B+tree</h1><p>B+TREE的演化.<br>推荐一个在线数据结构模拟的网站<br><a target="_blank" rel="noopener" href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html">https://www.cs.usfca.edu/~galles/visualization/Algorithms.html</a></p>
-<p>(1)二叉查找树(binarysearchtree)<br>特征<br>1 左边的节点小于根节点<br>2 右边的节点大于根节点<br>3 左，右子树也是二叉查找树<br>4 没有健值相等的节点</p>
+        <h1 id="1-Serial-Serial-Old收集器"><a href="#1-Serial-Serial-Old收集器" class="headerlink" title="1 Serial/Serial Old收集器"></a>1 Serial/Serial Old收集器</h1><p>Serial是一个单线程的收集器,作用于新生代,使用<code>复制</code>算法.</p>
+<p>Serial Old 是Serial收集器的老年代版本,使用<code>标记-整理</code>算法</p>
+<p>Serial/Serial Old只能使用单核单线程来进行垃圾回收,且收集的时候必须暂停其他所有工作线程(Stop The World),这意味着整个应用将无法对外服务.</p>
+<p><img src="/images/jvm_serial.png" alt="Alt text"></p>
+<p>安全点(safe point) : 程序执行时并非在所有地方都能停顿下来进行GC,能停下来进行GC的点叫左安全点.</p>
+<p>优点<br>简单高效,是client模式下默认的垃圾收集器</p>
+<p>缺点<br>垃圾回收速度慢,频繁地stop the world 导致用户体验差</p>
         
-          <a class="article-more-a" href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/#more">more >></a>
         
       
 
@@ -272,7 +276,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
         		</li>
       		
 		</ul>
@@ -282,7 +286,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/28/mysql%E6%94%AF%E6%8C%81%E7%9A%84%E7%B4%A2%E5%BC%95%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">展开全文 >></a>
         </p>
       
 
@@ -312,30 +316,35 @@
 
 
   
-    <article id="post-mysql索引的优缺点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Rabbitmq高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/26/mysql%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/">索引的优缺点</a>
+      <a class="article-title" href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/">Rabbitmq高可用</a>
     </h1>
   
 
         
-        <a href="/2020/09/26/mysql%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-09-26T13:33:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-26</time>
+        <a href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2020-10-12T13:02:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>索引是存储引擎用于快速找到记录的一种数据结构<br>索引犹如书的目录，通过目录，可以快速定位到所需的章节。</p>
-<h2 id="索引的优点"><a href="#索引的优点" class="headerlink" title="索引的优点"></a>索引的优点</h2><p>1减少服务器需要扫描的数据量<br>2减少服务器的临时表和排序<br>3将随机io变成顺序io，提高io性能</p>
-<h2 id="索引的缺点"><a href="#索引的缺点" class="headerlink" title="索引的缺点"></a>索引的缺点</h2><p>1占用额外的存储空间<br>2insert,delete,update等操作需要维护索引</p>
-
+        <p>rabbitmq支持集群方式实现高可用.</p>
+<h1 id="1-集群的节点类型"><a href="#1-集群的节点类型" class="headerlink" title="1 集群的节点类型"></a>1 集群的节点类型</h1><p>多个rabbitmq实例组成rabbitmq集群.<br>rabbitmq集群的节点可分为内存节点和磁盘节点.</p>
+<h2 id="1-1-内存节点"><a href="#1-1-内存节点" class="headerlink" title="1.1 内存节点:"></a>1.1 内存节点:</h2><p><font color='red'>将所有的队列(Queue),交换器(exchange),绑定(binding),用户(user),权限和虚拟主机(vhost) 的<font color='green'>元数据</font>定义都仅存储在内存中</font></p>
+<p><font size='4'>注意:是保存元数据信息,而不是队列里的消息.</font><br><font size='4'>内存节点重启会清空所有的元数据信息,然后从磁盘节点同步元数据信息</font></p>
+<h2 id="1-2-磁盘节点"><a href="#1-2-磁盘节点" class="headerlink" title="1.2 磁盘节点"></a>1.2 磁盘节点</h2><p><font color='red'>将所有的元数据保存在磁盘中</font></p>
+<p>一个集群中至少要有一个磁盘节点.有新节点加入或者离开集群时,新节点会将变动至少通知到一个磁盘节点.如果系统中唯一的磁盘节点宕机,整个集群依然可以继续路由已经存在的消息,<br>但是无法执行以下操作</p>
+        
+          <a class="article-more-a" href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/#more">more >></a>
+        
       
 
       
@@ -348,7 +357,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
         		</li>
       		
 		</ul>
@@ -358,7 +367,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/26/mysql%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/">展开全文 >></a>
         </p>
       
 
@@ -388,30 +397,32 @@
 
 
   
-    <article id="post-mysql并发多版本控制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Rabbitmq交换机类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/24/mysql%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">mysql并发多版本控制</a>
+      <a class="article-title" href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/">Rabbitmq交换机类型</a>
     </h1>
   
 
         
-        <a href="/2020/09/24/mysql%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/" class="archive-article-date">
-  	<time datetime="2020-09-24T12:07:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-24</time>
+        <a href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
+  	<time datetime="2020-10-10T11:30:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>mysql多版本并发控制(MVVC)<br>不同数据库实现MVVC机制各有不同。<br>mysql不同存储引擎实现MVVC也不尽相同，典型的实现方式有乐观锁和悲观锁。<br>InnoDB 存储引擎是基于乐观锁实现的<br>以下讨论 InnoDB 默认隔离级别（repeatable-read）的多版本并发控制</p>
-<p>InnoDB是通过在表里添加两个隐藏的列来实现的。每一行数据都额外维护了创建时间，删除时间两个隐藏列。这两列保存的并不是时间戳，而是事务的版本号。<br>每个事务的创建，版本号都是递增的。</p>
+        <p>Rabbitmq 是AMQP的实现,,本文所说的四种交换机实际也是 AMQP 支持的四种交换机.</p>
+<h1 id="1-直连交换机-Direct-Exchange"><a href="#1-直连交换机-Direct-Exchange" class="headerlink" title="1 直连交换机(Direct Exchange)"></a>1 直连交换机(Direct Exchange)</h1><p>队列绑定到某个交换机,同时绑定一个路由键<code>routing key</code>,如路由键为<code>red</code><br>交换机 会把这条消息路由给 同样绑定路由键为<code>red</code>的消费者队列</p>
+<p>如图<br>路由键为<code>red</code> 的消息只会 路由 到同样 路由键为<code>red</code> 的消费者队列里,而不会路由到 <code>blue</code> , <code>green</code>的队列.</p>
+<p><img src="/images/rabbitmq_direct_route.png" alt="Alt text"> </p>
         
-          <a class="article-more-a" href="/2020/09/24/mysql%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/#more">more >></a>
         
       
 
@@ -425,7 +436,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
         		</li>
       		
 		</ul>
@@ -435,7 +446,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/24/mysql%E5%B9%B6%E5%8F%91%E5%A4%9A%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
         </p>
       
 
@@ -465,32 +476,45 @@
 
 
   
-    <article id="post-mysql日志类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-AMQP协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/22/mysql%E6%97%A5%E5%BF%97%E7%B1%BB%E5%9E%8B/">mysql日志类型</a>
+      <a class="article-title" href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/">AMQP协议</a>
     </h1>
   
 
         
-        <a href="/2020/09/22/mysql%E6%97%A5%E5%BF%97%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2020-09-22T12:15:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-22</time>
+        <a href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
+  	<time datetime="2020-10-08T09:29:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-事务日志-包括重做日志redo-log-和回滚undo-log。"><a href="#1-事务日志-包括重做日志redo-log-和回滚undo-log。" class="headerlink" title="1 事务日志 包括重做日志redo log 和回滚undo log。"></a>1 事务日志 包括重做日志redo log 和回滚undo log。</h2><p>redo log : 保证事务的持久性.防止发生故障时，内存中尚有数据未写入磁盘。在mysql重新启动时，会根据redo log还原数据</p>
-<p>undo log 保存事务开启时的数据状态，用于事务回滚</p>
-<h2 id="2-错误日志（error-log）"><a href="#2-错误日志（error-log）" class="headerlink" title="2 错误日志（error log）"></a>2 错误日志（error log）</h2><p>记录启动，运行，停止的错误日志</p>
-<h2 id="3-通用查询日志（general-log）"><a href="#3-通用查询日志（general-log）" class="headerlink" title="3 通用查询日志（general log）"></a>3 通用查询日志（general log）</h2>
+        <h1 id="1-AMQP"><a href="#1-AMQP" class="headerlink" title="1 AMQP"></a>1 AMQP</h1><p>AMQP(Advanced Message Queuing Protocol) 一个提供统一消息服务的应用层标准高级消息队列协议,是应用层协议的一个开放标准,为面向消息的中间件设计.<br>其中,Rabbitmq是基于AMQP实现的</p>
+<h2 id="1-1-AMQP中的一些概念"><a href="#1-1-AMQP中的一些概念" class="headerlink" title="1.1 AMQP中的一些概念"></a>1.1 AMQP中的一些概念</h2><ul>
+<li><p>Server ：接收客户端的连接,实现AMQP实体服务.</p>
+</li>
+<li><p>Connection ：连接,应用程序与Server的网络连接,TCP连接.</p>
+</li>
+<li><p>Channel ：信道,消息读写等操作在信道中进行.客户端可以建立多个信道,每个信道代表一个会话任务.</p>
+</li>
+<li><p>Message ：消息,应用程序和服务器之间传送的数据,消息可以非常简单,也可以很复杂.有Properties和Body组成.Properties为外包装,可以对消息进行修饰,比如消息的优先级、延迟等高级特性；Body就是消息体内容.</p>
+</li>
+<li><p>Virtual Host：虚拟主机,用于逻辑隔离.一个虚拟主机里面可以有若干个Exchange和Queue,同一个虚拟主机里面不能有相同名称的Exchange或Queue.</p>
+</li>
+<li><p>Exchange ：交换器,接收消息,按照路由规则将消息路由到一个或者多个队列.如果路由不到,或者返回给生产者,或者直接丢弃.RabbitMQ常用的交换器常用类型有direct、topic、fanout、headers四种,后面详细介绍.</p>
+</li>
+<li><p>Binding ：绑定,交换器和消息队列之间的虚拟连接,绑定中可以包含一个或者多个RoutingKey.</p>
+</li>
+</ul>
         
-          <a class="article-more-a" href="/2020/09/22/mysql%E6%97%A5%E5%BF%97%E7%B1%BB%E5%9E%8B/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/#more">more >></a>
         
       
 
@@ -504,7 +528,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
         		</li>
       		
 		</ul>
@@ -514,7 +538,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/22/mysql%E6%97%A5%E5%BF%97%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/">展开全文 >></a>
         </p>
       
 
@@ -546,7 +570,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -674,6 +698,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
             
             <div class="clearfix"></div>

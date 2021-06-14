@@ -155,32 +155,33 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-minio优点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-精准努力读书笔记二-策略篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/">minio优点</a>
+      <a class="article-title" href="/2021/05/09/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C-%E7%AD%96%E7%95%A5%E7%AF%87/">精准努力读书笔记二(策略篇)</a>
     </h1>
   
 
         
-        <a href="/2020/12/01/minio%E4%BC%98%E7%82%B9/" class="archive-article-date">
-  	<time datetime="2020-12-01T13:32:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-01</time>
+        <a href="/2021/05/09/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C-%E7%AD%96%E7%95%A5%E7%AF%87/" class="archive-article-date">
+  	<time datetime="2021-05-09T13:41:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-09</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-数据保护"><a href="#1-数据保护" class="headerlink" title="1 数据保护"></a>1 数据保护</h1><p>分布式Minio采用 纠删码来防范多个节点宕机和位衰减bit rot。<br>分布式Minio至少需要4个硬盘，使用分布式Minio自动引入了纠删码功能</p>
-<h1 id="2-高可用"><a href="#2-高可用" class="headerlink" title="2 高可用"></a>2 高可用</h1><p>单机Minio服务存在单点故障，相反，如果是一个有 m 台服务器， n 块硬盘的分布式Minio,只要有 m/2 台服务器或者 m*n/2 及更多硬盘在线，你的数据就是安全的。</p>
-<p>例如，一个16节点的Minio集群，每个节点200块硬盘，就算8台服務器宕机，即大概有1600块硬盘，这个集群仍然是可读的，不过你需要9台服務器在线才能写数据。</p>
-<h1 id="3-一致性"><a href="#3-一致性" class="headerlink" title="3 一致性"></a>3 一致性</h1><p>Minio在分布式和单机模式下，所有读写操作都严格遵守read-after-write和list-after-write一致性模型</p>
+        <p>这一篇只看到前三部分,略有分歧.</p>
+<h1 id="分歧一-使用杠杠"><a href="#分歧一-使用杠杠" class="headerlink" title="分歧一: 使用杠杠."></a>分歧一: 使用杠杠.</h1><p>作者给自己人生加的杠杠有三个<br>1 考上北大研究生.使用北大的名气和资源</p>
+<p>2 拿到超级演说家冠军,打响名气.</p>
+<p>3 互联网营销传播.</p>
+<p>与其说是杠杠,还不如说是平台或者资源.</p>
         
-          <a class="article-more-a" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/#more">more >></a>
+          <a class="article-more-a" href="/2021/05/09/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C-%E7%AD%96%E7%95%A5%E7%AF%87/#more">more >></a>
         
       
 
@@ -194,7 +195,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -204,7 +205,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/01/minio%E4%BC%98%E7%82%B9/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/09/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%BA%8C-%E7%AD%96%E7%95%A5%E7%AF%87/">展开全文 >></a>
         </p>
       
 
@@ -234,35 +235,29 @@
 
 
   
-    <article id="post-JVM垃圾收集器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-精准努力读书笔记一-目标篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">JVM垃圾收集器</a>
+      <a class="article-title" href="/2021/05/07/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80-%E7%9B%AE%E6%A0%87%E7%AF%87/">精准努力读书笔记一(目标篇)</a>
     </h1>
   
 
         
-        <a href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" class="archive-article-date">
-  	<time datetime="2020-10-15T08:34:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-15</time>
+        <a href="/2021/05/07/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80-%E7%9B%AE%E6%A0%87%E7%AF%87/" class="archive-article-date">
+  	<time datetime="2021-05-07T15:22:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-Serial-Serial-Old收集器"><a href="#1-Serial-Serial-Old收集器" class="headerlink" title="1 Serial/Serial Old收集器"></a>1 Serial/Serial Old收集器</h1><p>Serial是一个单线程的收集器,作用于新生代,使用<code>复制</code>算法.</p>
-<p>Serial Old 是Serial收集器的老年代版本,使用<code>标记-整理</code>算法</p>
-<p>Serial/Serial Old只能使用单核单线程来进行垃圾回收,且收集的时候必须暂停其他所有工作线程(Stop The World),这意味着整个应用将无法对外服务.</p>
-<p><img src="/images/jvm_serial.png" alt="Alt text"></p>
-<p>安全点(safe point) : 程序执行时并非在所有地方都能停顿下来进行GC,能停下来进行GC的点叫左安全点.</p>
-<p>优点<br>简单高效,是client模式下默认的垃圾收集器</p>
-<p>缺点<br>垃圾回收速度慢,频繁地stop the world 导致用户体验差</p>
+        <h1 id="1制定明确可行的目标"><a href="#1制定明确可行的目标" class="headerlink" title="1制定明确可行的目标."></a>1制定明确可行的目标.</h1><p>比如2021全年做够200道的菜。<br>要把目标拆分更小粒度，更容易衡量的单位。<br>如果拆分成月，那么每个月要做16道。<br>拆分成星期，那么每个星期要做4道。<br>每星期每个月要有记录，中途因不可抗力因素耽误了进度，要及时补回。<br>比如一天读书一小时,一周写两篇博客等</p>
         
-          <a class="article-more-a" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/#more">more >></a>
+          <a class="article-more-a" href="/2021/05/07/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80-%E7%9B%AE%E6%A0%87%E7%AF%87/#more">more >></a>
         
       
 
@@ -276,7 +271,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jvm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -286,7 +281,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/15/JVM%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/07/%E7%B2%BE%E5%87%86%E5%8A%AA%E5%8A%9B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0%E4%B8%80-%E7%9B%AE%E6%A0%87%E7%AF%87/">展开全文 >></a>
         </p>
       
 
@@ -316,205 +311,36 @@
 
 
   
-    <article id="post-Rabbitmq高可用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-分布式事务的几种实现方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/">Rabbitmq高可用</a>
+      <a class="article-title" href="/2020/12/16/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">分布式事务的几种实现方式</a>
     </h1>
   
 
         
-        <a href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/" class="archive-article-date">
-  	<time datetime="2020-10-12T13:02:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-12</time>
+        <a href="/2020/12/16/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2020-12-16T12:36:28.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>rabbitmq支持集群方式实现高可用.</p>
-<h1 id="1-集群的节点类型"><a href="#1-集群的节点类型" class="headerlink" title="1 集群的节点类型"></a>1 集群的节点类型</h1><p>多个rabbitmq实例组成rabbitmq集群.<br>rabbitmq集群的节点可分为内存节点和磁盘节点.</p>
-<h2 id="1-1-内存节点"><a href="#1-1-内存节点" class="headerlink" title="1.1 内存节点:"></a>1.1 内存节点:</h2><p><font color='red'>将所有的队列(Queue),交换器(exchange),绑定(binding),用户(user),权限和虚拟主机(vhost) 的<font color='green'>元数据</font>定义都仅存储在内存中</font></p>
-<p><font size='4'>注意:是保存元数据信息,而不是队列里的消息.</font><br><font size='4'>内存节点重启会清空所有的元数据信息,然后从磁盘节点同步元数据信息</font></p>
-<h2 id="1-2-磁盘节点"><a href="#1-2-磁盘节点" class="headerlink" title="1.2 磁盘节点"></a>1.2 磁盘节点</h2><p><font color='red'>将所有的元数据保存在磁盘中</font></p>
-<p>一个集群中至少要有一个磁盘节点.有新节点加入或者离开集群时,新节点会将变动至少通知到一个磁盘节点.如果系统中唯一的磁盘节点宕机,整个集群依然可以继续路由已经存在的消息,<br>但是无法执行以下操作</p>
-        
-          <a class="article-more-a" href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/12/Rabbitmq%E9%AB%98%E5%8F%AF%E7%94%A8/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Rabbitmq交换机类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/">Rabbitmq交换机类型</a>
-    </h1>
-  
-
-        
-        <a href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
-  	<time datetime="2020-10-10T11:30:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Rabbitmq 是AMQP的实现,,本文所说的四种交换机实际也是 AMQP 支持的四种交换机.</p>
-<h1 id="1-直连交换机-Direct-Exchange"><a href="#1-直连交换机-Direct-Exchange" class="headerlink" title="1 直连交换机(Direct Exchange)"></a>1 直连交换机(Direct Exchange)</h1><p>队列绑定到某个交换机,同时绑定一个路由键<code>routing key</code>,如路由键为<code>red</code><br>交换机 会把这条消息路由给 同样绑定路由键为<code>red</code>的消费者队列</p>
-<p>如图<br>路由键为<code>red</code> 的消息只会 路由 到同样 路由键为<code>red</code> 的消费者队列里,而不会路由到 <code>blue</code> , <code>green</code>的队列.</p>
-<p><img src="/images/rabbitmq_direct_route.png" alt="Alt text"> </p>
-        
-          <a class="article-more-a" href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/10/Rabbitmq%E4%BA%A4%E6%8D%A2%E6%9C%BA%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-AMQP协议" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/">AMQP协议</a>
-    </h1>
-  
-
-        
-        <a href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/" class="archive-article-date">
-  	<time datetime="2020-10-08T09:29:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-AMQP"><a href="#1-AMQP" class="headerlink" title="1 AMQP"></a>1 AMQP</h1><p>AMQP(Advanced Message Queuing Protocol) 一个提供统一消息服务的应用层标准高级消息队列协议,是应用层协议的一个开放标准,为面向消息的中间件设计.<br>其中,Rabbitmq是基于AMQP实现的</p>
-<h2 id="1-1-AMQP中的一些概念"><a href="#1-1-AMQP中的一些概念" class="headerlink" title="1.1 AMQP中的一些概念"></a>1.1 AMQP中的一些概念</h2><ul>
-<li><p>Server ：接收客户端的连接,实现AMQP实体服务.</p>
+        <h1 id="1-两阶段提交-Two-phase-commit-protocol"><a href="#1-两阶段提交-Two-phase-commit-protocol" class="headerlink" title="1 两阶段提交(Two-phase commit protocol)"></a>1 两阶段提交(Two-phase commit protocol)</h1><p>2PC (Two-phase commit protocol) 是一种强一致性设计,通过引入一个事务管理器 来 管理 多个资源管理器(数据库)的提交或回滚.</p>
+<ul>
+<li><p>第一阶段(准备阶段) 事务管理器 给每个 资源管理器 发送准备命令. 资源管理器 接收到准备命令后,执行了事务的操作,但不提交事务.</p>
 </li>
-<li><p>Connection ：连接,应用程序与Server的网络连接,TCP连接.</p>
-</li>
-<li><p>Channel ：信道,消息读写等操作在信道中进行.客户端可以建立多个信道,每个信道代表一个会话任务.</p>
-</li>
-<li><p>Message ：消息,应用程序和服务器之间传送的数据,消息可以非常简单,也可以很复杂.有Properties和Body组成.Properties为外包装,可以对消息进行修饰,比如消息的优先级、延迟等高级特性；Body就是消息体内容.</p>
-</li>
-<li><p>Virtual Host：虚拟主机,用于逻辑隔离.一个虚拟主机里面可以有若干个Exchange和Queue,同一个虚拟主机里面不能有相同名称的Exchange或Queue.</p>
-</li>
-<li><p>Exchange ：交换器,接收消息,按照路由规则将消息路由到一个或者多个队列.如果路由不到,或者返回给生产者,或者直接丢弃.RabbitMQ常用的交换器常用类型有direct、topic、fanout、headers四种,后面详细介绍.</p>
-</li>
-<li><p>Binding ：绑定,交换器和消息队列之间的虚拟连接,绑定中可以包含一个或者多个RoutingKey.</p>
+<li><p>第二阶段(提交阶段) 如果事务在每个 资源管理器 都执行成功, 事务管理器 会发送通知让多个资源管理器提交事务.否则,事务管理器发送通知让资源管理器回滚事务.</p>
 </li>
 </ul>
+<p>如图</p>
         
-          <a class="article-more-a" href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/#more">more >></a>
+          <a class="article-more-a" href="/2020/12/16/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/#more">more >></a>
         
       
 
@@ -528,7 +354,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
         		</li>
       		
 		</ul>
@@ -538,7 +364,173 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/10/08/AMQP%E5%8D%8F%E8%AE%AE/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/12/16/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-分布式锁的几种实现方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/13/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">分布式锁的几种实现方式</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/13/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2020-12-13T07:15:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>分布式锁应具备如下特性</p>
+<ul>
+<li>1 高性能获取锁和释放锁</li>
+<li>2 高可用获取锁和释放锁</li>
+<li>3 防止死锁,具备自动过期机制</li>
+<li>4 具备可重入特点,即当前锁的持有者可再次获得锁</li>
+<li>5 非阻塞性,即获取不到锁就返回失败</li>
+</ul>
+<p>实现方式</p>
+<h1 id="1-基于数据库实现"><a href="#1-基于数据库实现" class="headerlink" title="1 基于数据库实现"></a>1 基于数据库实现</h1><p>基于数据库实现的分布式锁适合并发量不大的业务</p>
+<h2 id="1-1-基于表记录"><a href="#1-1-基于表记录" class="headerlink" title="1.1 基于表记录"></a>1.1 基于表记录</h2>
+        
+          <a class="article-more-a" href="/2020/12/13/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/13/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E5%87%A0%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-如何保证接口的幂等性" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/11/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7/">如何保证接口的幂等性</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/11/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7/" class="archive-article-date">
+  	<time datetime="2020-12-11T14:16:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>接口幂等性是指 同一个接口被调用一次和被调用多次 处理的结果是一致的.</p>
+<p>对于select和delete操作.从数据的角度来说,多次调用也是幂等的.</p>
+<p>对于insert和update操作,幂等性接口设计有如下方案</p>
+<h2 id="1-token机制"><a href="#1-token机制" class="headerlink" title="(1) token机制"></a>(1) token机制</h2><p>服务器生成token,保存在redis里,并将token返回给客户端.<br>客户端携带token 调用幂等性接口,幂等接口删除token,再处理业务逻辑.</p>
+<h2 id="2-乐观锁机制"><a href="#2-乐观锁机制" class="headerlink" title="(2) 乐观锁机制"></a>(2) 乐观锁机制</h2><p>更新操作中,在表添加版本号 <code>version</code> 字段.<br>先select 获取当前数据的版本号,update 时带上版本号.</p>
+<h2 id="3-记录数据状态"><a href="#3-记录数据状态" class="headerlink" title="(3)记录数据状态"></a>(3)记录数据状态</h2><p>要更新的数据行添加状态,如status 0 待支付,1未支付,2支付成功,3支付失败<br>更新数据的时候带上状态<br>如 <code>update table set column=&#39;xxx&#39; where status = 0</code></p>
+<h2 id="4-唯一索引"><a href="#4-唯一索引" class="headerlink" title="(4) 唯一索引"></a>(4) 唯一索引</h2><p>可根据业务在数据表建立唯一索引.为防止频繁访问数据库,这个唯一索引的值可也先放在redis中过滤.</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/11/%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%B9%82%E7%AD%89%E6%80%A7/">展开全文 >></a>
         </p>
       
 
@@ -570,7 +562,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -698,6 +690,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
             
             <div class="clearfix"></div>

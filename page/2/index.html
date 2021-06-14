@@ -155,51 +155,32 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-CAP定理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-线程的三种创建方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/09/CAP%E5%AE%9A%E7%90%86/">CAP定理</a>
+      <a class="article-title" href="/2021/05/27/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/">线程的三种创建方式</a>
     </h1>
   
 
         
-        <a href="/2020/12/09/CAP%E5%AE%9A%E7%90%86/" class="archive-article-date">
-  	<time datetime="2020-12-09T11:47:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-09</time>
+        <a href="/2021/05/27/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/" class="archive-article-date">
+  	<time datetime="2021-05-27T13:44:27.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-27</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="C-Consistency"><a href="#C-Consistency" class="headerlink" title="C(Consistency)"></a>C(Consistency)</h1><p>一致性 : 在分布式系统中,一致性是指数据在多个系统中能否保持一致的特性.<br>即所有节点的数据要保持一致</p>
-<h1 id="A-availability"><a href="#A-availability" class="headerlink" title="A (availability)"></a>A (availability)</h1><p>可用性 : 是指系统所提供的服务必须要一直处于可用的状态,对于用户的每一个请求操作总是能够在有限的时间内返回结果.</p>
-<h1 id="P-Partition-tolerance"><a href="#P-Partition-tolerance" class="headerlink" title="P (Partition tolerance)"></a>P (Partition tolerance)</h1><p>分区容错性 : 是指分布式系统中在遇到任何网络分区故障的时候,仍然能够保证对外提供一致性和可用性的服务,除非是整个网络环境都发生了故障.</p>
-<p>一个分布式系统无法同时满足CAP.</p>
-<table>
-<thead>
-<tr>
-<th align="center">操作</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">放弃 P</td>
-<td align="center">所有系统都在同一个节点,那就不会出现网络分区.但放弃P后,系统也就无法拓展了</td>
-</tr>
-<tr>
-<td align="center">放弃 A</td>
-<td align="center">当遇到网络分区时,系统需要等待一段时间才能对外提供服务.在此等待时间,系统是不可用的</td>
-</tr>
-<tr>
-<td align="center">放弃 C</td>
-<td align="center">当发生网络分区时,系统数据会保持最终的数据一致性. 但在某个时间窗口P内的数据是不一致的,时间窗口P的值取决于数据副本在不同节点复制的时间时长</td>
-</tr>
-</tbody></table>
-
+        <h1 id="1继承-Thread-类创建线程类"><a href="#1继承-Thread-类创建线程类" class="headerlink" title="1继承 Thread 类创建线程类"></a>1继承 Thread 类创建线程类</h1><p>优点: 编写简单,可直接用this访问当前线程<br>缺点: 无法多继承</p>
+<h1 id="2通过-Runnable-接口创建线程类"><a href="#2通过-Runnable-接口创建线程类" class="headerlink" title="2通过 Runnable 接口创建线程类"></a>2通过 Runnable 接口创建线程类</h1><p>优点: 可以多继承<br>缺点: 变成稍微复杂,如果要访问当前线程,需用Thread.currentThread()方法</p>
+<h1 id="3通过-Callable-和-Future-创建线程"><a href="#3通过-Callable-和-Future-创建线程" class="headerlink" title="3通过 Callable 和 Future 创建线程"></a>3通过 Callable 和 Future 创建线程</h1><p>优点: 可以获取线程的处理结果.<br>缺点: 代码复杂</p>
+        
+          <a class="article-more-a" href="/2021/05/27/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/#more">more >></a>
+        
       
 
       
@@ -212,7 +193,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
         		</li>
       		
 		</ul>
@@ -222,7 +203,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/09/CAP%E5%AE%9A%E7%90%86/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/27/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%89%E7%A7%8D%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F/">展开全文 >></a>
         </p>
       
 
@@ -252,33 +233,31 @@
 
 
   
-    <article id="post-mcClient命令" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-线程的五种状态" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/">mcClient命令</a>
+      <a class="article-title" href="/2021/05/23/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81/">线程的五种状态</a>
     </h1>
   
 
         
-        <a href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2020-12-08T12:58:53.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-08</time>
+        <a href="/2021/05/23/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81/" class="archive-article-date">
+  	<time datetime="2021-05-23T10:13:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>minio支持客户端使用命令来操作服务器的数据</p>
-<h1 id="1-安装mc客户端"><a href="#1-安装mc客户端" class="headerlink" title="1 安装mc客户端"></a>1 安装mc客户端</h1><p>去minio中国镜像下载linux mc客户端<br><code>http://dl.minio.org.cn/client/mc/release/</code></p>
-<p>下载完成后,给予权限<br><code>chmod +x /home/minio/mc</code></p>
-<p>添加到环境变量<br><code>vi /etc/profile</code></p>
-<p>在文件末尾添加<br><code>export PATH=&quot;/home/minio:$PATH&quot;</code></p>
+        <p>线程的五种状态</p>
+<h1 id="1新建状态-new"><a href="#1新建状态-new" class="headerlink" title="1新建状态(new)"></a>1新建状态(new)</h1><p>线程对象被创建后,即进入了新建状态</p>
+<h1 id="2就绪状态-runnable"><a href="#2就绪状态-runnable" class="headerlink" title="2就绪状态(runnable)"></a>2就绪状态(runnable)</h1><p>当调用线程的 start 方法,线程即进入就绪状态,随时等待cpu调度</p>
         
-          <a class="article-more-a" href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/#more">more >></a>
+          <a class="article-more-a" href="/2021/05/23/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81/#more">more >></a>
         
       
 
@@ -292,7 +271,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
         		</li>
       		
 		</ul>
@@ -302,7 +281,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/08/mcClient%E5%91%BD%E4%BB%A4/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/23/%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%BA%94%E7%A7%8D%E7%8A%B6%E6%80%81/">展开全文 >></a>
         </p>
       
 
@@ -332,34 +311,31 @@
 
 
   
-    <article id="post-nginx配置load-balancer" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-并发编程三要素" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/">nginx配置load-balancer</a>
+      <a class="article-title" href="/2021/05/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B8%89%E8%A6%81%E7%B4%A0/">并发编程三要素</a>
     </h1>
   
 
         
-        <a href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/" class="archive-article-date">
-  	<time datetime="2020-12-06T09:49:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-06</time>
+        <a href="/2021/05/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B8%89%E8%A6%81%E7%B4%A0/" class="archive-article-date">
+  	<time datetime="2021-05-20T10:08:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-20</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>需求 :<br>使用 <code>http://www.minio.muklee.com</code><br>访问minio集群<br><code>http://192.168.26.131:9000,http://192.168.26.132:9000,http://192.168.26.133:9000,http://192.168.26.133:9000</code></p>
-<p>修改windows本地host文件<br>编辑 C:\Windows\System32\drivers\etc\hosts</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">192.168.26.131 www.minio.muklee.com</span><br></pre></td></tr></table></figure>
+        <p>并发编程三要素</p>
+<h1 id="1-原子性"><a href="#1-原子性" class="headerlink" title="1 原子性"></a>1 原子性</h1><p>原子性指的是一个或者多个操作，要么全部执行并且在执行的过程中不被其他操作打断，要么就全部都不执行。</p>
+<h1 id="2-可见性"><a href="#2-可见性" class="headerlink" title="2 可见性"></a>2 可见性</h1><p>可见性是指多个线程操作一个共享变量,其中一个线程修改变量以后,其他线程可以立即看到修改的结果</p>
+<h1 id="有序性"><a href="#有序性" class="headerlink" title="有序性"></a>有序性</h1><p>即程序要按照代码的先后顺序执行</p>
 
-<p>注 : 192.168.26.131 为nginx所在机器的ip</p>
-        
-          <a class="article-more-a" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/#more">more >></a>
-        
       
 
       
@@ -372,11 +348,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">并发编程</a>
         		</li>
       		
 		</ul>
@@ -386,7 +358,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/06/nginx%E9%85%8D%E7%BD%AEload-balancer/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/20/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B8%89%E8%A6%81%E7%B4%A0/">展开全文 >></a>
         </p>
       
 
@@ -416,32 +388,30 @@
 
 
   
-    <article id="post-minio分布式扩容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-解铃还须系铃人" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/">minio分布式扩容</a>
+      <a class="article-title" href="/2021/05/16/%E8%A7%A3%E9%93%83%E8%BF%98%E9%A1%BB%E7%B3%BB%E9%93%83%E4%BA%BA/">解铃还须系铃人</a>
     </h1>
   
 
         
-        <a href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/" class="archive-article-date">
-  	<time datetime="2020-12-05T13:39:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-05</time>
+        <a href="/2021/05/16/%E8%A7%A3%E9%93%83%E8%BF%98%E9%A1%BB%E7%B3%BB%E9%93%83%E4%BA%BA/" class="archive-article-date">
+  	<time datetime="2021-05-16T10:18:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-16</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>查看第一个集群的启动日志</p>
-<p><img src="/images/minio_start.png" alt="Alt text"> </p>
-<p>minio暂不支持动态扩容,所以只能停机扩容.</p>
-<p>minio扩容后原来的数据并不会迁移,往扩容后的集群添加新数据,会优先往空余分区存放.</p>
+        <p>今天又有一个同学辞工,选择回老家.<br>这座城市又少了一个可以一起吃饭的人,成长的路上总是越来越孤独的.<br>我已经忘记这是第几个选择离开大城市的同学了,当然,这也不会是最后一个.</p>
+<p>相信很多人都会有这样的困扰<br>回老家发展还是继续留在广州?</p>
         
-          <a class="article-more-a" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/#more">more >></a>
+          <a class="article-more-a" href="/2021/05/16/%E8%A7%A3%E9%93%83%E8%BF%98%E9%A1%BB%E7%B3%BB%E9%93%83%E4%BA%BA/#more">more >></a>
         
       
 
@@ -455,7 +425,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -465,7 +435,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/05/minio%E5%88%86%E5%B8%83%E5%BC%8F%E6%89%A9%E5%AE%B9/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/16/%E8%A7%A3%E9%93%83%E8%BF%98%E9%A1%BB%E7%B3%BB%E9%93%83%E4%BA%BA/">展开全文 >></a>
         </p>
       
 
@@ -495,73 +465,30 @@
 
 
   
-    <article id="post-minio分布式部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-当归元肉竹丝鸡" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/">minio分布式部署</a>
+      <a class="article-title" href="/2021/05/15/%E5%BD%93%E5%BD%92%E5%85%83%E8%82%89%E7%AB%B9%E4%B8%9D%E9%B8%A1/">当归元肉竹丝鸡</a>
     </h1>
   
 
         
-        <a href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/" class="archive-article-date">
-  	<time datetime="2020-12-03T13:14:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-03</time>
+        <a href="/2021/05/15/%E5%BD%93%E5%BD%92%E5%85%83%E8%82%89%E7%AB%B9%E4%B8%9D%E9%B8%A1/" class="archive-article-date">
+  	<time datetime="2021-05-15T10:47:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-1-安装前的准备工作"><a href="#1-1-安装前的准备工作" class="headerlink" title="1.1 安装前的准备工作"></a>1.1 安装前的准备工作</h2><p>每个节点都要执行以下的所有操作</p>
-<p>安装ntpdate,保持时间一致</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ntpdate</span><br><span class="line">ntpdate 0.asia.pool.ntp.org</span><br></pre></td></tr></table></figure>
-
-
-<p>安装结构如下<br>一共4个节点,每个节点4个硬盘,磁盘目录如下</p>
-<table>
-<thead>
-<tr>
-<th align="center">IP</th>
-<th align="center">磁盘1</th>
-<th align="center">磁盘2</th>
-<th align="center">磁盘3</th>
-<th align="center">磁盘4</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">192.168.26.131</td>
-<td align="center">/home/minio/export1</td>
-<td align="center">/home/minio/export2</td>
-<td align="center">/home/minio/export3</td>
-<td align="center">/home/minio/export4</td>
-</tr>
-<tr>
-<td align="center">192.168.26.132</td>
-<td align="center">/home/minio/export1</td>
-<td align="center">/home/minio/export2</td>
-<td align="center">/home/minio/export3</td>
-<td align="center">/home/minio/export4</td>
-</tr>
-<tr>
-<td align="center">192.168.26.133</td>
-<td align="center">/home/minio/export1</td>
-<td align="center">/home/minio/export2</td>
-<td align="center">/home/minio/export3</td>
-<td align="center">/home/minio/export4</td>
-</tr>
-<tr>
-<td align="center">192.168.26.134</td>
-<td align="center">/home/minio/export1</td>
-<td align="center">/home/minio/export2</td>
-<td align="center">/home/minio/export3</td>
-<td align="center">/home/minio/export4</td>
-</tr>
-</tbody></table>
+        <p>在外工作生活多年,十分怀念老母亲煲的老火靓汤.<br>本着自己一个人在外生活,也要将自己养的白白胖胖,卖个好价钱的原则,<br>中午十一点多,我独自一人,冒着三十多度的高温,开始了我<del>与菜市场大妈不得不说的事</del>的买菜之旅.</p>
+<p>特别喜欢菜市场的生活气息.<br>“阿姨,送条葱啦,下次多多帮衬”<br>“37块四,意头不好,37.5块吧”</p>
         
-          <a class="article-more-a" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/#more">more >></a>
+          <a class="article-more-a" href="/2021/05/15/%E5%BD%93%E5%BD%92%E5%85%83%E8%82%89%E7%AB%B9%E4%B8%9D%E9%B8%A1/#more">more >></a>
         
       
 
@@ -575,7 +502,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">minio</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
         		</li>
       		
 		</ul>
@@ -585,7 +512,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/12/03/minio%E5%88%86%E5%B8%83%E5%BC%8F%E9%83%A8%E7%BD%B2/">展开全文 >></a>
+          <a class="article-more-a" href="/2021/05/15/%E5%BD%93%E5%BD%92%E5%85%83%E8%82%89%E7%AB%B9%E4%B8%9D%E9%B8%A1/">展开全文 >></a>
         </p>
       
 
@@ -617,7 +544,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -745,6 +672,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
             
             <div class="clearfix"></div>

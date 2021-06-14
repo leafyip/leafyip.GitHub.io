@@ -155,38 +155,83 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-redis主从复制哨兵模式以及集群" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-MQ技术选型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">redis主从复制哨兵模式以及集群</a>
+      <a class="article-title" href="/2020/10/07/MQ%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/">MQ技术选型</a>
     </h1>
   
 
         
-        <a href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/" class="archive-article-date">
-  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
+        <a href="/2020/10/07/MQ%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/" class="archive-article-date">
+  	<time datetime="2020-10-07T08:16:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="1-redis主从复制"><a href="#1-redis主从复制" class="headerlink" title="1.redis主从复制"></a>1.redis主从复制</h1><h2 id="1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点"><a href="#1-2-redis支持主从复制-经配置后-可以将主节点的数据复制到多个从节点" class="headerlink" title="1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点."></a>1.2 redis支持主从复制,经配置后,可以将主节点的数据复制到多个从节点.</h2><p>同步策略分为全量同步和增量同步</p>
-<h3 id="1-2-1全量同步"><a href="#1-2-1全量同步" class="headerlink" title="1.2.1全量同步"></a>1.2.1全量同步</h3><pre><code>1 slave初始化的时候,会向master 节点发送PSYNC 命令,第一次连接会触发 全量更新(full resnyc)
-2 主节点收到命令后BGSAVE 后台开启进程来保存镜像(可设置保存镜像到磁盘,或者保存到内存), 并记录RDB生成这段时间内客户端发送的命令
-3 从节点收到主节点的RDB,保存到本地磁盘,清空所有旧数据,并加载主节点的RDB文件
-4 主节点发送快照完毕后,向从节点写入缓存区的命令
-5 从节点接收并执行主节点发送的命令</code></pre>
-<h3 id="1-2-2-增量同步"><a href="#1-2-2-增量同步" class="headerlink" title="1.2.2 增量同步"></a>1.2.2 增量同步</h3><p>master 和slave 内部都会维护一个offset,以此来判断当前的数据集是否相同.<br>slave 还会维护一个 master replication id (如果master 重启后,master replication id 会变化).<br>slave 发送psync 命令 会发送 pysnc master replication id  offset等参数,如果master replication id 或者offset 不存在.那么会进行全量更新</p>
-<p>主从节点正常工作后都是增量同步.主节点每执行完一条命令都会发送给从节点执行.</p>
-<p>注意<br>    -如果多个slave同时向master进行全量更新,master只会生成一个RDB.<br>    -master同时向slave发送RDB文件,有可能导致磁盘IO瓶颈.<br>    -主从模式下，如果主节点宕机，客户端需要手动将连接地址改成slave的地址。</p>
-        
-          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/#more">more >></a>
-        
+        <p>业内主流的MQ有 </p>
+<table>
+<thead>
+<tr>
+<th align="center">-</th>
+<th align="center">activemq</th>
+<th align="center">rabbitmq</th>
+<th align="center">rocketmq</th>
+<th align="center">kafka</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">开发语言</td>
+<td align="center">java</td>
+<td align="center">elang</td>
+<td align="center">java</td>
+<td align="center">java</td>
+</tr>
+<tr>
+<td align="center">单机吞吐量</td>
+<td align="center">万级</td>
+<td align="center">万级</td>
+<td align="center">十万级</td>
+<td align="center">十万级</td>
+</tr>
+<tr>
+<td align="center">时效性</td>
+<td align="center">ms级</td>
+<td align="center">us级别(1ms=1000us)</td>
+<td align="center">ms级</td>
+<td align="center">ms级</td>
+</tr>
+<tr>
+<td align="center">可用性</td>
+<td align="center">主从架构的高可用</td>
+<td align="center">主从架构的高可用</td>
+<td align="center">分布式架构高可用</td>
+<td align="center">分布式架构高可用</td>
+</tr>
+<tr>
+<td align="center">持久化</td>
+<td align="center">支持</td>
+<td align="center">支持</td>
+<td align="center">支持</td>
+<td align="center">支持</td>
+</tr>
+<tr>
+<td align="center">活跃程度</td>
+<td align="center">不活跃</td>
+<td align="center">活跃</td>
+<td align="center">活跃</td>
+<td align="center">活跃</td>
+</tr>
+</tbody></table>
+<p>总结<br>大数据领域,如实时计算,日志采集等场景,建议使用kafka.<br>大型公司,技术研发能力能,能参与源码修改,建议使用rocketmq.万一社区没人维护了,公司内部还能自己维护</p>
+<p>中小公司,建议使用rabbitmq.</p>
+
       
 
       
@@ -199,7 +244,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
         		</li>
       		
 		</ul>
@@ -209,7 +254,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/21/redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F%E4%BB%A5%E5%8F%8A%E9%9B%86%E7%BE%A4/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/07/MQ%E6%8A%80%E6%9C%AF%E9%80%89%E5%9E%8B/">展开全文 >></a>
         </p>
       
 
@@ -239,33 +284,35 @@
 
 
   
-    <article id="post-mysql事务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-MySQL主从复制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">mysql事务特性(ACID)</a>
+      <a class="article-title" href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">MySQL主从复制</a>
     </h1>
   
 
         
-        <a href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/" class="archive-article-date">
-  	<time datetime="2020-09-21T12:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-21</time>
+        <a href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/" class="archive-article-date">
+  	<time datetime="2020-10-05T10:54:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1原子性（atomicticy）"><a href="#1原子性（atomicticy）" class="headerlink" title="1原子性（atomicticy）"></a>1原子性（atomicticy）</h2><p>事务内的所有操作是原子性的，要么都执行，要么都不执行</p>
-<h2 id="2一致性（consistency）"><a href="#2一致性（consistency）" class="headerlink" title="2一致性（consistency）"></a>2一致性（consistency）</h2><p>事务执行完毕后，数据库从一个一致性状态到另一个一致性状态</p>
-<h2 id="3隔离性（isolation）"><a href="#3隔离性（isolation）" class="headerlink" title="3隔离性（isolation）"></a>3隔离性（isolation）</h2><p>事务之间是互相隔离的</p>
-<h2 id="4持久性-（durability）"><a href="#4持久性-（durability）" class="headerlink" title="4持久性 （durability）"></a>4持久性 （durability）</h2><p>事务一旦提交后，对数据库的改变是永久的</p>
-<p>除非显式开启事务，否则mysql事务是自动提交（auto-commit）的。</p>
+        <h1 id="1-MySQL主从复制原理"><a href="#1-MySQL主从复制原理" class="headerlink" title="1 MySQL主从复制原理"></a>1 MySQL主从复制原理</h1><p>MySQL支持将数据从一台服务器复制到另一台或多台.一台住库的数据可以同步到多台备库,备库自身也可以配置成另外一台服务器的主库.<br>MySQL支持两种复制方式:<br>基于 语句 的复制<br>基于 行 的复制(5.1版本后才支持)</p>
+<p>复制过程</p>
+<ol>
+<li>主库将修改的记录写入到二进制日志(bin log)中</li>
+<li>备库新建一个IO线程,连接主库.<br>主库启动一个特殊的二进制转储(binlog dump)线程,该线程将二进制内容发送到备库,如果binlog dump线程追赶上了主库,即已经将主库所有二进制日志都发送给备库,它会进入休眠,直到主库有新的记录写入到二进制日志中才会被唤醒.<br>备库IO线程将接收到的事件记录到中继日志中</li>
+<li>备库SQL线程从中继日志中读取事件并执行</li>
+</ol>
         
-          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/#more">more >></a>
         
       
 
@@ -289,7 +336,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/21/mysql%E4%BA%8B%E5%8A%A1/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/05/MySQL%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6/">展开全文 >></a>
         </p>
       
 
@@ -319,31 +366,34 @@
 
 
   
-    <article id="post-docker不适合安装数据库的原因" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-消息队列(MQ)的优缺点" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/">docker不适合安装数据库的原因</a>
+      <a class="article-title" href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/">消息队列(MQ)的优缺点</a>
     </h1>
   
 
         
-        <a href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/" class="archive-article-date">
-  	<time datetime="2020-09-17T12:51:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-17</time>
+        <a href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/" class="archive-article-date">
+  	<time datetime="2020-10-05T09:48:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-数据安全问题"><a href="#1-数据安全问题" class="headerlink" title="1.数据安全问题"></a>1.数据安全问题</h2><p>当容器被删除时，容器内的数据也会被删除。虽然docker可以挂载数据卷来存储数据，但docker 的volumes是围绕Union FS镜像来提供持久化存储，数据安全缺乏保证。<br>当容器崩溃或者数据库奔溃等，可能会损坏数据。</p>
-<h2 id="2-磁盘IO性能问题"><a href="#2-磁盘IO性能问题" class="headerlink" title="2.磁盘IO性能问题"></a>2.磁盘IO性能问题</h2><p>数据库对磁盘操作频繁，如果一台docker部署多个mysql，会产生严重的IO瓶颈，降低数据库的性能。</p>
-<h2 id="3-网络问题"><a href="#3-网络问题" class="headerlink" title="3.网络问题"></a>3.网络问题</h2><p>假如数据库都安装在物理机，那么只需要保证物理机之间的网络是互通的，数据库主从复制就可以顺利进行。<br>但docker是使用网络虚拟化，在数据库与物理机之前多了一层隔离层，如果docker网络有问题会影响主从复制。</p>
+        <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h1><h2 id="1-异步"><a href="#1-异步" class="headerlink" title="1 异步"></a>1 异步</h2><p>假如系统是同步调用,A本地执行需要300ms,A调用B,网络通信以及B执行时间加起来也是300ms,A调用C网络通信以及C执行时间加起来也是300ms.<br>那用户等待的总时长为300ms + 300ms + 300ms = 900ms , 假如还有系统D,E,F呢….</p>
+<p><img src="/images/mq_sync.png" alt="Alt text"> </p>
+<p>如果系统之间的接口可以异步调用,那可以考虑引入MQ消息中间件<br>引入消息中间间后系统的调用如图</p>
+<p><img src="/images/mq_async.png" alt="Alt text"> </p>
+<p>用户调用系统A<br>系统A执行成功后往MQ注册消息<br>然后返回结果给用户</p>
+<p>系统B,C,D…N 监听MQ中的数据,然后执行对应的业务逻辑</p>
         
-          <a class="article-more-a" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/#more">more >></a>
+          <a class="article-more-a" href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/#more">more >></a>
         
       
 
@@ -357,7 +407,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MQ</a>
         		</li>
       		
 		</ul>
@@ -367,7 +417,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/05/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97(MQ)%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/">展开全文 >></a>
         </p>
       
 
@@ -397,34 +447,71 @@
 
 
   
-    <article id="post-docker下安装mysql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-InnoDB和Myasiam存储引擎的区别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/">docker下安装mysql</a>
+      <a class="article-title" href="/2020/10/03/InnoDB%E5%92%8CMyasiam%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB/">InnoDB和Myasiam存储引擎的区别</a>
     </h1>
   
 
         
-        <a href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/" class="archive-article-date">
-  	<time datetime="2020-09-16T12:49:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-16</time>
+        <a href="/2020/10/03/InnoDB%E5%92%8CMyasiam%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  	<time datetime="2020-10-03T08:28:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-03</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="此篇博客仅供学习使用-实际生产环境中-mysql-redis等数据库不建议安装在容器中"><a href="#此篇博客仅供学习使用-实际生产环境中-mysql-redis等数据库不建议安装在容器中" class="headerlink" title="此篇博客仅供学习使用,实际生产环境中 mysql,redis等数据库不建议安装在容器中."></a>此篇博客仅供学习使用,实际生产环境中 mysql,redis等数据库不建议安装在容器中.</h1><ul>
-<li>详细可查看另一篇博客 <a href="/2020/09/17/docker%E4%B8%8D%E9%80%82%E5%90%88%E5%AE%89%E8%A3%85%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%8E%9F%E5%9B%A0/" title="docker不适合安装数据库的原因">docker不适合安装数据库的原因</a></li>
-</ul>
-<h2 id="1搜索MySQL镜像"><a href="#1搜索MySQL镜像" class="headerlink" title="1搜索MySQL镜像"></a>1搜索MySQL镜像</h2><pre><code>docker search mysql</code></pre>
-<p>我在搜索过程中报了如下错误<br>     Error response from daemon: Get <a target="_blank" rel="noopener" href="https://index.docker.io/v1/search?q=mysql&amp;n=25">https://index.docker.io/v1/search?q=mysql&amp;n=25</a>: x509: certificate has expired or is not yet valid</p>
-        
-          <a class="article-more-a" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/#more">more >></a>
-        
+        <table>
+<thead>
+<tr>
+<th align="center">\</th>
+<th align="center">InnoDB</th>
+<th align="center">Mysiam</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">事务和外键</td>
+<td align="center">支持</td>
+<td align="center">不支持</td>
+</tr>
+<tr>
+<td align="center">锁的级别</td>
+<td align="center">行锁,页锁,表锁</td>
+<td align="center">表锁</td>
+</tr>
+<tr>
+<td align="center">支持索引的类别</td>
+<td align="center">支持聚簇索引和非聚簇索引</td>
+<td align="center">仅支持非聚簇索引</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">支持Full-Text(全文索引),B-tree,自适应Hash,不支持R-Tree(空间索引)</td>
+<td align="center">支持B-Tree,R-Tree,Full-Text,不支持Hash;</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center">不支持压缩索引</td>
+<td align="center">支持压缩索引</td>
+</tr>
+<tr>
+<td align="center">是否维护表记录总数</td>
+<td align="center">否</td>
+<td align="center">是</td>
+</tr>
+<tr>
+<td align="center">其他特性</td>
+<td align="center">插入缓冲,二次写,自适应hash,预读</td>
+<td align="center">-</td>
+</tr>
+</tbody></table>
+
       
 
       
@@ -437,7 +524,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -447,7 +534,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/16/docker%E4%B8%8B%E5%AE%89%E8%A3%85mysql/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/03/InnoDB%E5%92%8CMyasiam%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E7%9A%84%E5%8C%BA%E5%88%AB/">展开全文 >></a>
         </p>
       
 
@@ -477,38 +564,30 @@
 
 
   
-    <article id="post-redis持久化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-mysql覆盖索引与回表查询" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/">redis持久化</a>
+      <a class="article-title" href="/2020/10/01/mysql%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E4%B8%8E%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2/">mysql覆盖索引与回表查询</a>
     </h1>
   
 
         
-        <a href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/" class="archive-article-date">
-  	<time datetime="2020-09-14T12:08:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-14</time>
+        <a href="/2020/10/01/mysql%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E4%B8%8E%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2/" class="archive-article-date">
+  	<time datetime="2020-10-01T13:26:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="redis持久化策略"><a href="#redis持久化策略" class="headerlink" title="redis持久化策略"></a>redis持久化策略</h1><p>redis官方持久化方式有两种</p>
-<ul>
-<li><p>快照(RDB) : 保存了redis某个时间点的数据集</p>
-</li>
-<li><p>追加文件(AOF) : 记录redis执行的所有操作命令,并在服务器启动时,通过执行这些命令来还原数据</p>
-</li>
-</ul>
-<h2 id="1-快照-RDB"><a href="#1-快照-RDB" class="headerlink" title="1 快照(RDB)"></a>1 快照(RDB)</h2><p>优点<br>    1. 通过合理配置,可以很方便地讲数据还原到某个特定的时间.<br>    2. RDB文件比AOF文件占用的空间小,且恢复数据的速度也更快<br>    3. 如果创建RDB文件时出现错误,不会影响到之前保存的版本.</p>
-<p>缺点<br>    a 会丢失未来得及生成快照的数据<br>    b fork子进程占用的内存会随着数据的增加而增加,恢复时间也会相应增加.</p>
-        
-          <a class="article-more-a" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/#more">more >></a>
-        
+        <h1 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h1><p>如果一个索引包含(或者说覆盖)所有需要查询的字段的值,称之为覆盖索引</p>
+<p>mysql中,hash索引,全文索引,空间索引都不会存储列的值,所以覆盖索引只能是B+Tree类型</p>
+<h1 id="回表查询"><a href="#回表查询" class="headerlink" title="回表查询"></a>回表查询</h1><p>先通过普通索引定位到主键的值,在根据主键的值定位数据.<br>相当于遍历了2次B+Tree,第一次是普通索引,第二次是主键索引</p>
+
       
 
       
@@ -521,7 +600,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -531,7 +610,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2020/09/14/redis%E6%8C%81%E4%B9%85%E5%8C%96/">展开全文 >></a>
+          <a class="article-more-a" href="/2020/10/01/mysql%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95%E4%B8%8E%E5%9B%9E%E8%A1%A8%E6%9F%A5%E8%AF%A2/">展开全文 >></a>
         </p>
       
 
@@ -563,7 +642,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -691,6 +770,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">并发编程</a>
               </li>
             
             <div class="clearfix"></div>
